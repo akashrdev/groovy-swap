@@ -25,6 +25,10 @@ export default {
         "primary-btn": "#0e9a83",
         "primary-btn-hover": "#5cb19d",
         "primary-border": "#69687f",
+        "secondary-dark": "#29334b",
+        "secondary-card": "#3e475d",
+        "secondary-card-hover": "#6b7183",
+        "secondary-border": "#6b7183",
       },
       fontFamily: {
         ranchers: ["Ranchers", "normal"],

@@ -14,7 +14,7 @@ export const TokenSelectItem = ({
   const { setSelectedInputToken, setSelectedOutputToken } = useSwap();
   return (
     <div
-      className="w-full h-20 hover:bg-primary-card-hover flex gap-2 items-start justify-center flex-col cursor-pointer p-3"
+      className="w-full h-20 hover:bg-primary-card-hover flex gap-2 items-start justify-center flex-col cursor-pointer p-3 rounded-xl"
       onClick={() =>
         tokenDirection === TOKEN_DIRECTION.INPUT
           ? setSelectedInputToken(token)

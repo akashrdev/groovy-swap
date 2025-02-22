@@ -8,7 +8,7 @@ export const TokenSelectSection = ({
   tokenDirection: TOKEN_DIRECTION;
 }) => {
   return (
-    <div className="w-full justify-between h-1/2 p-3 flex items-center">
+    <div className={"w-full justify-between h-1/2 p-3 flex items-center"}>
       <TokenSelectDialog tokenDirection={tokenDirection} />
       <TokenAmountInput tokenDirection={tokenDirection} />
     </div>
