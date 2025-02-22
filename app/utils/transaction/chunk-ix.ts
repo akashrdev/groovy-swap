@@ -14,25 +14,26 @@ export const chunkIx = async ({
 }) => {
   const chunks: TransactionInstruction[][] = [];
   let currentChunk: TransactionInstruction[] = [];
+
   for (const ix of instructions) {
+    currentChunk.push(ix);
+
     const simulatedTx = await simulateTx({
       connection,
       payer: publicKey,
-      instructions: [...currentChunk, ix],
+      instructions: currentChunk,
     });
 
     if (simulatedTx.txSize > BYTE_SIZE_LIMIT) {
-      if (currentChunk.length > 0) {
-        chunks.push(currentChunk);
-      }
+      currentChunk.pop();
+      chunks.push([...currentChunk]);
+
       currentChunk = [ix];
-    } else {
-      currentChunk.push(ix);
     }
   }
 
   if (currentChunk.length > 0) {
-    chunks.push(currentChunk);
+    chunks.push([...currentChunk]);
   }
 
   return chunks;

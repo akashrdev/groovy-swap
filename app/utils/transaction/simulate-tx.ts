@@ -25,7 +25,6 @@ export const simulateTx = async ({
 
   const tx = new VersionedTransaction(message);
   const txSize = tx.serialize().length;
-
   const { value } = await connection.simulateTransaction(tx);
 
   return {

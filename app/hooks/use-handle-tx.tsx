@@ -42,15 +42,19 @@ export const useHandleTx = () => {
         instructions: validatedInstructions,
       });
 
-      const messageV0 = new TransactionMessage({
-        payerKey: publicKey,
-        recentBlockhash: blockhash,
-        instructions: chunks.flat(),
-      }).compileToV0Message();
+      const txs: VersionedTransaction[] = [];
 
-      const tx = new VersionedTransaction(messageV0);
+      for (const chunk of chunks) {
+        const messageV0 = new TransactionMessage({
+          payerKey: publicKey,
+          recentBlockhash: blockhash,
+          instructions: chunk,
+        }).compileToV0Message();
 
-      const signedTxs = await signAllTransactions([tx]);
+        txs.push(new VersionedTransaction(messageV0));
+      }
+
+      const signedTxs = await signAllTransactions(txs);
 
       const signatures = await Promise.all(
         signedTxs.map((signedTx) =>
