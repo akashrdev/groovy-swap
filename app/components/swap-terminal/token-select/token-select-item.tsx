@@ -1,7 +1,6 @@
 import { TokenItem } from "@/app/types/token-item";
 import { abbreviate } from "@/app/utils/pubkey/abbreviate";
 import Image from "next/image";
-import { Button } from "../../common/button";
 import { TOKEN_DIRECTION, useSwap } from "@/app/context/swap";
 import { DEFAULT_TOKEN_LIST } from "@/app/constants/token-list";
 
