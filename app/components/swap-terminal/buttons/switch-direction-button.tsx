@@ -1,6 +1,6 @@
 import { useSwap } from "@/app/context/swap";
 import { ArrowUpDown } from "lucide-react";
-import { Button } from "../common/button";
+import { Button } from "../../common/button";
 import { twMerge } from "tailwind-merge";
 
 export const SwitchDirectionButton = ({

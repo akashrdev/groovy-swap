@@ -27,7 +27,7 @@ export default {
         "primary-border": "#69687f",
       },
       fontFamily: {
-        ranchers: ["Ranchers", "cursive"],
+        ranchers: ["Ranchers", "normal"],
         outfit: ["Outfit", "sans-serif"],
       },
     },

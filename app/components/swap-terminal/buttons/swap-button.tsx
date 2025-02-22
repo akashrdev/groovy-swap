@@ -1,12 +1,12 @@
 import { useWallet } from "@solana/wallet-adapter-react";
-import { Button } from "../common/button";
+import { Button } from "../../common/button";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useSwap } from "@/app/context/swap";
 import { useGetQuote } from "@/app/hooks/use-get-quote";
 import { scaleApiInputAmount } from "@/app/utils/token-amounts/scale-api-input-amount";
 import { useHandleTx } from "@/app/hooks/use-handle-tx";
 import { useState } from "react";
-import { Toast } from "../common/toast";
+import { Toast } from "../../common/toast";
 
 export const SwapButton = () => {
   const { connected } = useWallet();
@@ -31,8 +31,6 @@ export const SwapButton = () => {
     inputAmount: formattedInputAmount,
     outputTokenMint: selectedOutputToken.mintAddress,
   });
-
-  console.log("quote", quote);
 
   const { handleTx } = useHandleTx();
 

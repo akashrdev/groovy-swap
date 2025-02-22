@@ -1,9 +1,9 @@
 "use client";
 import { TOKEN_DIRECTION } from "@/app/context/swap";
 import { Divider } from "../common/divider";
-import { TokenSelectSection } from "./select-section";
-import { SwapButton } from "./swap-button";
-import { SwitchDirectionButton } from "./switch-direction-button";
+import { TokenSelectSection } from "./token-select/token-select-section";
+import { SwapButton } from "./buttons/swap-button";
+import { SwitchDirectionButton } from "./buttons/switch-direction-button";
 
 export const SwapTerminal = () => {
   return (
