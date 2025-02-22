@@ -1,8 +1,8 @@
 import { useGetJupTokens } from "@/app/hooks/use-get-jup-tokens";
 import { TokenItem } from "@/app/types/token-item";
 import * as Dialog from "@radix-ui/react-dialog";
-import { TokenSelectItem } from "./item";
-import { TokenSelectDialogSkeleton } from "./skeleton";
+import { TokenSelectItem } from "./token-select-item";
+import { TokenSelectDialogSkeleton } from "./token-select-skeleton";
 import { TOKEN_DIRECTION } from "@/app/context/swap";
 
 export const TokenSelectDialogContent = ({

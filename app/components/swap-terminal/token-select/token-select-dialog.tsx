@@ -1,8 +1,8 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { TokenSelectTrigger } from "./dialog-trigger";
-import { TokenSelectDialogContent } from "./dialog-content";
+import { TokenSelectDialogContent } from "./token-select-dialog-content";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { TOKEN_DIRECTION } from "@/app/context/swap";
+import { TokenSelectTrigger } from "./token-select-trigger";
 
 export const TokenSelectDialog = ({
   tokenDirection,
