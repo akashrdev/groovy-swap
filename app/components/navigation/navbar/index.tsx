@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "../../common/button";
 import { WalletConnect } from "../../wallet-connect";
 
 export const Navbar = () => {
@@ -9,8 +8,8 @@ export const Navbar = () => {
         Groovy Swap
       </span>
       <div className="absolute left-1/2 -translate-x-1/2 flex gap-4">
-        <Button variant="ghost">Swap</Button>
-        <Button variant="ghost">Profile</Button>
+        {/* <Button variant="ghost">Swap</Button> // TODO: Re-add when pages ready
+        <Button variant="ghost">Profile</Button> */}
       </div>
       <div className="ml-auto">
         <WalletConnect />
