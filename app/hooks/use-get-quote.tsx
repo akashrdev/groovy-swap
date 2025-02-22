@@ -49,5 +49,6 @@ export const useGetQuote = ({
   return useQuery({
     queryKey: ["quote", inputTokenMint, outputTokenMint, inputAmount],
     queryFn,
+    enabled: !!inputAmount,
   });
 };

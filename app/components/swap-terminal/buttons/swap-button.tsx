@@ -43,7 +43,6 @@ export const SwapButton = () => {
       const result = await handleTx({ ix });
 
       if (result && result.signatures.length > 0) {
-        console.log(result);
         setToastTitle("Success");
         setToastMessage("Your has been transaction completed sucessfully");
       }

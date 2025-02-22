@@ -3,6 +3,7 @@ import { abbreviate } from "@/app/utils/pubkey/abbreviate";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import { TOKEN_DIRECTION, useSwap } from "@/app/context/swap";
+import { DEFAULT_TOKEN_LIST } from "@/app/constants/token-list";
 
 export const TokenSelectItem = ({
   token,
@@ -13,9 +14,8 @@ export const TokenSelectItem = ({
 }) => {
   const { setSelectedInputToken, setSelectedOutputToken } = useSwap();
   return (
-    <Button
-      variant="ghost"
-      className="w-full h-20 hover:bg-primary-card-hover flex gap-2 items-start justify-center flex-col cursor-pointer"
+    <div
+      className="w-full h-20 hover:bg-primary-card-hover flex gap-2 items-start justify-center flex-col cursor-pointer p-3"
       onClick={() =>
         tokenDirection === TOKEN_DIRECTION.INPUT
           ? setSelectedInputToken(token)
@@ -26,13 +26,14 @@ export const TokenSelectItem = ({
         <Image
           width={20}
           height={20}
-          src={token.logo}
+          src={token.logo || DEFAULT_TOKEN_LIST.SOL.logo}
           alt="token"
           className="rounded-full"
+          unoptimized
         />
         <span className="font-bold text-lg">{token.symbol}</span>
       </div>
       <span>{abbreviate(token.mintAddress)}</span>
-    </Button>
+    </div>
   );
 };

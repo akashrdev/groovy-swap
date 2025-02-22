@@ -22,6 +22,7 @@ export const useGetJupTokens = () => {
           symbol: token.symbol,
           logo: token.logoURI,
           decimals: token.decimals,
+          name: token.name,
         } as TokenItem)
     );
   };

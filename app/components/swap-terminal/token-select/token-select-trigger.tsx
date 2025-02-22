@@ -22,6 +22,7 @@ export const TokenSelectTrigger = ({
           height={30}
           width={30}
           className="rounded-full"
+          unoptimized
         />
         <span className="font-semibold text-lg text-white">
           {displayedToken.symbol}
