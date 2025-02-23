@@ -51,7 +51,7 @@ export const SwapButton = () => {
       setToastTitle("Transaction Error");
       setToastMessage("Error:" + err);
     } finally {
-      setToastVisible(false);
+      setTimeout(() => setToastVisible(false), 3000);
     }
   };
 
