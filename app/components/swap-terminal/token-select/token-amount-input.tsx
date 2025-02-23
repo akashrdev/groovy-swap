@@ -6,6 +6,11 @@ import { useGetQuote } from "@/app/hooks/use-get-quote";
 import { useForm, Controller } from "react-hook-form";
 import { useGetUsdPrice } from "@/app/hooks/use-get-usd-price";
 import { round } from "@/app/utils/numbers/round";
+import { useGetWalletTokensBalance } from "@/app/hooks/use-get-wallet-token-balance";
+import { useEffect, useState } from "react";
+import { DEFAULT_TOKEN_LIST } from "@/app/constants/token-list";
+import { WalletMinimalIcon } from "lucide-react";
+import { InputMaxlBalanceButton } from "../buttons/input-max-balance-button";
 
 const decimalsAndEmptyInputAllowed = /^\d*\.?\d*$/;
 
@@ -37,11 +42,12 @@ export const TokenAmountInput = ({
     selectedOutputToken.decimals
   );
 
-  const { control, setValue } = useForm({
+  const formMethods = useForm({
     defaultValues: {
       amount: inputAmount.toString(),
     },
   });
+  const { control, setValue } = formMethods;
 
   const { data: usdPrice } = useGetUsdPrice({
     mintAddress:
@@ -50,12 +56,65 @@ export const TokenAmountInput = ({
         : selectedOutputToken.mintAddress,
   });
 
+  const { data: walletTokenBalance } = useGetWalletTokensBalance();
+
   const usdTotal = (usdPrice ?? 0) * inputAmount;
 
   const formattedUsdTotal = round(usdTotal);
+  const [outputTokenBalance, setOutputTokenBalance] = useState(0);
+  const [inputTokenBalance, setInputTokenBalance] = useState(0);
+
+  useEffect(() => {
+    if (!walletTokenBalance) return;
+
+    if (selectedInputToken.mintAddress === DEFAULT_TOKEN_LIST.SOL.mintAddress) {
+      setInputTokenBalance(walletTokenBalance.formattedSolBalance || 0);
+    } else {
+      const inputToken = walletTokenBalance.tokenBalances?.find(
+        (token) => token.mintAddress === selectedInputToken.mintAddress
+      );
+      console.log("Found Input Token:", inputToken);
+      setInputTokenBalance(inputToken?.balance || 0);
+    }
+
+    if (
+      selectedOutputToken.mintAddress === DEFAULT_TOKEN_LIST.SOL.mintAddress
+    ) {
+      setOutputTokenBalance(walletTokenBalance.formattedSolBalance || 0);
+    } else {
+      const outputToken = walletTokenBalance.tokenBalances?.find(
+        (token) => token.mintAddress === selectedOutputToken.mintAddress
+      );
+      setOutputTokenBalance(outputToken?.balance || 0);
+    }
+  }, [
+    walletTokenBalance,
+    selectedInputToken.mintAddress,
+    selectedOutputToken.mintAddress,
+  ]);
+
+  useEffect(() => {
+    setValue("amount", inputAmount.toString());
+  }, [inputAmount, setValue]);
+
+  const displayedBalance =
+    tokenDirection === TOKEN_DIRECTION.INPUT
+      ? `${inputTokenBalance} ${selectedInputToken.symbol}`
+      : `${outputTokenBalance} ${selectedOutputToken.symbol}`;
 
   return (
     <div className="relative">
+      <div className="flex absolute top-[-28px] left-1 text-white/60 items-center justify-between w-full">
+        <div className="flex gap-1 items-center">
+          <WalletMinimalIcon height={15} width={15} />
+          <span className="text-sm">{displayedBalance}</span>
+        </div>
+
+        {tokenDirection === TOKEN_DIRECTION.INPUT && (
+          <InputMaxlBalanceButton balance={inputTokenBalance} />
+        )}
+      </div>
+
       <Controller
         name="amount"
         control={control}
@@ -92,7 +151,7 @@ export const TokenAmountInput = ({
         )}
       />
       {tokenDirection === TOKEN_DIRECTION.INPUT && (
-        <span className="absolute bottom-[-28px] left-0 text-white/60">
+        <span className="absolute bottom-[-28px] left-1 text-white/60">
           ${formattedUsdTotal}
         </span>
       )}
