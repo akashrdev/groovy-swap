@@ -9,14 +9,14 @@ export const WalletConnectMenuActions = () => {
     <div className="bg-primary-card px-4 py-3 rounded-xl flex flex-col items-center gap-3 cursor-pointer">
       <DropDownMenu.Item
         onClick={() => setVisible(true)}
-        className="hover:bg-primary-card-hover py-1 px-2"
+        className="hover:bg-primary-card-hover py-1 px-2 rounded-lg"
       >
         <span>Change Wallet</span>
       </DropDownMenu.Item>
 
       <DropDownMenu.Item
         onClick={disconnect}
-        className="hover:bg-primary-card-hover py-1 px-2"
+        className="hover:bg-primary-card-hover py-1 px-2 rounded-lg"
       >
         <span>Disconnect</span>
       </DropDownMenu.Item>
