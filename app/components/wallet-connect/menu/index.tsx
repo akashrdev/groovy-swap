@@ -23,7 +23,7 @@ export const WalletConnectMenu = () => {
         <Button
           variant="primary"
           size="md"
-          className="flex justify-center items-center gap-1"
+          className="flex justify-center items-center gap-1 text-xs sm:text-base"
         >
           {displayedUser}
           {isMenuVisible ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
