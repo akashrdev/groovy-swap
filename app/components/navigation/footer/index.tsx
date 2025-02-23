@@ -10,7 +10,7 @@ export const Footer = () => {
         Made with ❤️ by{" "}
         <Link
           href="https://github.com/akashrdev"
-          className={`${ranchers.className}text-primary-btn`}
+          className={`${ranchers.className} text-primary-btn`}
         >
           Akash Rajan
         </Link>
