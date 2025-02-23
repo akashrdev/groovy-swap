@@ -58,7 +58,7 @@ export const TokenAmountInput = ({
 
   const { data: walletTokenBalance } = useGetWalletTokensBalance();
 
-  const usdTotal = (usdPrice ?? 0) * inputAmount;
+  const usdTotal = (usdPrice ?? 0) * Number(inputAmount);
 
   const formattedUsdTotal = round(usdTotal);
   const [outputTokenBalance, setOutputTokenBalance] = useState(0);
@@ -73,7 +73,6 @@ export const TokenAmountInput = ({
       const inputToken = walletTokenBalance.tokenBalances?.find(
         (token) => token.mintAddress === selectedInputToken.mintAddress
       );
-      console.log("Found Input Token:", inputToken);
       setInputTokenBalance(inputToken?.balance || 0);
     }
 
@@ -142,7 +141,7 @@ export const TokenAmountInput = ({
 
               if (value === "" || decimalsAndEmptyInputAllowed.test(value)) {
                 setValue("amount", value);
-                setInputAmount(Number(value) || 0);
+                setInputAmount(value === "" ? "" : Number(value));
               }
             }}
             disabled={tokenDirection === TOKEN_DIRECTION.OUTPUT}

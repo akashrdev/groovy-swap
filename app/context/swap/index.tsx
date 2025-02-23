@@ -34,8 +34,8 @@ export enum TOKEN_DIRECTION {
 interface SwapContextType {
   selectedInputToken: TokenItem;
   setSelectedInputToken: (token: TokenItem) => void;
-  inputAmount: number;
-  setInputAmount: (inputAmount: number) => void;
+  inputAmount: number | string;
+  setInputAmount: (inputAmount: number | string) => void;
   selectedOutputToken: TokenItem;
   setSelectedOutputToken: (token: TokenItem) => void;
   createSwapInstruction: (
@@ -57,7 +57,7 @@ export const SelectedTokensProvider = ({
     DEFAULT_TOKEN_LIST.SOL
   );
 
-  const [inputAmount, setInputAmount] = useState(0);
+  const [inputAmount, setInputAmount] = useState<number | string>("");
   const { publicKey } = useWallet();
 
   const createSwapInstruction = async (quote: APIResponseQuote) => {
