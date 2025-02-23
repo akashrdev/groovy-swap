@@ -125,7 +125,7 @@ export const TokenAmountInput = ({
           <input
             {...field}
             className={twMerge(
-              "h-16 bg-inherit rounded-xl text-white bg-secondary-card p-5",
+              "h-16  bg-inherit rounded-xl text-white bg-secondary-card sm:px-5 py-5 px-3  sm:text-base text-sm",
               tokenDirection === TOKEN_DIRECTION.INPUT
                 ? "cursor-text"
                 : "cursor-not-allowed"
