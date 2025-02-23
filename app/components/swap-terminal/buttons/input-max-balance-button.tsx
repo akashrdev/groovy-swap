@@ -6,7 +6,7 @@ export const InputMaxlBalanceButton = ({ balance }: { balance: number }) => {
 
   return (
     <Button
-      className="p-0 hover:bg-inherit"
+      className="p-0 hover:bg-inherit text-sm"
       variant="ghost"
       onClick={() => {
         setInputAmount(balance);

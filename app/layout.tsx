@@ -8,6 +8,9 @@ import { Outfit } from "next/font/google";
 export const metadata: Metadata = {
   title: "Groovy Swap",
   description: "The grooviest way to swap",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 const outfit = Outfit({ subsets: ["latin"], weight: ["400", "500", "700"] });
