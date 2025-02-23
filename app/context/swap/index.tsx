@@ -3,8 +3,12 @@
 import { DEFAULT_TOKEN_LIST } from "@/app/constants/token-list";
 import { APIResponseQuote } from "@/app/hooks/use-get-quote";
 import { TokenItem } from "@/app/types/token-item";
-import { useWallet } from "@solana/wallet-adapter-react";
-import { PublicKey, TransactionInstruction } from "@solana/web3.js";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import {
+  AddressLookupTableAccount,
+  PublicKey,
+  TransactionInstruction,
+} from "@solana/web3.js";
 import axios from "axios";
 import { createContext, useContext, useState, ReactNode } from "react";
 
@@ -26,6 +30,11 @@ export interface SwapInstructions {
   data: string;
 }
 
+interface SwapInstructionReturn {
+  instructions: TransactionInstruction[];
+  addressLookupTables: AddressLookupTableAccount[];
+}
+
 export enum TOKEN_DIRECTION {
   OUTPUT = "output",
   INPUT = "input",
@@ -40,7 +49,7 @@ interface SwapContextType {
   setSelectedOutputToken: (token: TokenItem) => void;
   createSwapInstruction: (
     quote: APIResponseQuote
-  ) => Promise<TransactionInstruction[]>;
+  ) => Promise<SwapInstructionReturn>;
 }
 
 const SwapContext = createContext<SwapContextType | undefined>(undefined);
@@ -58,10 +67,11 @@ export const SelectedTokensProvider = ({
   );
 
   const [inputAmount, setInputAmount] = useState<number | string>("");
+  const { connection } = useConnection();
   const { publicKey } = useWallet();
 
   const createSwapInstruction = async (quote: APIResponseQuote) => {
-    if (!publicKey) return [];
+    if (!publicKey) return { instructions: [], addressLookupTables: [] };
     try {
       const { data } = await axios.post(
         "https://api.jup.ag/swap/v1/swap-instructions",
@@ -85,7 +95,39 @@ export const SelectedTokensProvider = ({
         setupInstructions,
         swapInstruction: swapInstructionPayload,
         cleanupInstruction,
+        addressLookupTableAddresses,
       } = data;
+
+      const getAddressLookupTableAccounts = async (
+        keys: string[]
+      ): Promise<AddressLookupTableAccount[]> => {
+        const addressLookupTableAccountInfos =
+          await connection.getMultipleAccountsInfo(
+            keys.map((key) => new PublicKey(key))
+          );
+
+        return addressLookupTableAccountInfos.reduce(
+          (acc, accountInfo, index) => {
+            const addressLookupTableAddress = keys[index];
+            if (accountInfo) {
+              const addressLookupTableAccount = new AddressLookupTableAccount({
+                key: new PublicKey(addressLookupTableAddress),
+                state: AddressLookupTableAccount.deserialize(accountInfo.data),
+              });
+              acc.push(addressLookupTableAccount);
+            }
+
+            return acc;
+          },
+          new Array<AddressLookupTableAccount>()
+        );
+      };
+
+      const addressLookupTables: AddressLookupTableAccount[] = [];
+
+      addressLookupTables.push(
+        ...(await getAddressLookupTableAccounts(addressLookupTableAddresses))
+      );
 
       const parseInstructions = (
         instructions: {
@@ -108,7 +150,7 @@ export const SelectedTokensProvider = ({
           });
         });
 
-      return [
+      const instructions = [
         ...parseInstructions(computeBudgetInstructions),
         ...parseInstructions(setupInstructions),
         new TransactionInstruction({
@@ -128,6 +170,7 @@ export const SelectedTokensProvider = ({
         }),
         ...parseInstructions(cleanupInstruction ? [cleanupInstruction] : []),
       ];
+      return { instructions, addressLookupTables };
     } catch (error) {
       console.error("Error creating swap instruction:", error);
       throw error;

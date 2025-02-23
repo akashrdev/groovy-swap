@@ -1,4 +1,9 @@
-import { Connection, PublicKey, TransactionInstruction } from "@solana/web3.js";
+import {
+  AddressLookupTableAccount,
+  Connection,
+  PublicKey,
+  TransactionInstruction,
+} from "@solana/web3.js";
 import { simulateTx } from "./simulate-tx";
 
 export const BYTE_SIZE_LIMIT = 1232;
@@ -7,10 +12,12 @@ export const chunkIx = async ({
   connection,
   publicKey,
   instructions,
+  addressLookupTables,
 }: {
   connection: Connection;
   publicKey: PublicKey;
   instructions: TransactionInstruction[];
+  addressLookupTables?: AddressLookupTableAccount[];
 }) => {
   const chunks: TransactionInstruction[][] = [];
   let currentChunk: TransactionInstruction[] = [];
@@ -22,6 +29,7 @@ export const chunkIx = async ({
       connection,
       payer: publicKey,
       instructions: currentChunk,
+      addressLookupTables,
     });
 
     if (simulatedTx.txSize > BYTE_SIZE_LIMIT) {

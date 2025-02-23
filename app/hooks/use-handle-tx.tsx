@@ -1,6 +1,7 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import {
+  AddressLookupTableAccount,
   PublicKey,
   TransactionInstruction,
   TransactionMessage,
@@ -12,7 +13,13 @@ export const useHandleTx = () => {
   const { connection } = useConnection();
   const { publicKey, signAllTransactions, connected } = useWallet();
   const { setVisible } = useWalletModal();
-  const handleTx = async ({ ix }: { ix: TransactionInstruction[] }) => {
+  const handleTx = async ({
+    ix,
+    addressLookupTables,
+  }: {
+    ix: TransactionInstruction[];
+    addressLookupTables?: AddressLookupTableAccount[];
+  }) => {
     if (!connected) {
       setVisible(true);
       return;
@@ -40,6 +47,7 @@ export const useHandleTx = () => {
         connection,
         publicKey,
         instructions: validatedInstructions,
+        addressLookupTables,
       });
 
       const txs: VersionedTransaction[] = [];
@@ -49,7 +57,7 @@ export const useHandleTx = () => {
           payerKey: publicKey,
           recentBlockhash: blockhash,
           instructions: chunk,
-        }).compileToV0Message();
+        }).compileToV0Message(addressLookupTables || undefined);
 
         txs.push(new VersionedTransaction(messageV0));
       }

@@ -37,8 +37,10 @@ export const SwapButton = () => {
         title: "Processing Transaction",
         message: "Your transaction is being processed",
       });
-      const ix = await createSwapInstruction(quote);
-      const result = await handleTx({ ix });
+      const { instructions, addressLookupTables } = await createSwapInstruction(
+        quote
+      );
+      const result = await handleTx({ ix: instructions, addressLookupTables });
 
       if (result && result.signatures.length > 0) {
         showToast({
