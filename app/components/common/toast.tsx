@@ -3,12 +3,12 @@ import { ReactNode } from "react";
 
 export const Toast = ({
   title,
-  content,
+  message,
   action,
   ...props
 }: {
   title: string;
-  content: string;
+  message: string;
   action?: ReactNode;
 }) => {
   return (
@@ -22,7 +22,7 @@ export const Toast = ({
         </ToastPrimitive.Title>
       )}
       <ToastPrimitive.Description className="text-sm">
-        {content}
+        {message}
       </ToastPrimitive.Description>
 
       {action && (

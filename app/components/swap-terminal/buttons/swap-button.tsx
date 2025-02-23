@@ -5,15 +5,12 @@ import { useSwap } from "@/app/context/swap";
 import { useGetQuote } from "@/app/hooks/use-get-quote";
 import { scaleApiInputAmount } from "@/app/utils/token-amounts/scale-api-input-amount";
 import { useHandleTx } from "@/app/hooks/use-handle-tx";
-import { useState } from "react";
-import { Toast } from "../../common/toast";
+import { useToast } from "@/app/context/toast";
 
 export const SwapButton = () => {
   const { connected } = useWallet();
   const { setVisible } = useWalletModal();
-  const [toastVisible, setToastVisible] = useState(false);
-  const [toastTitle, setToastTitle] = useState("");
-  const [toastMessage, setToastMessage] = useState("");
+  const { showToast } = useToast();
   const {
     createSwapInstruction,
     selectedInputToken,
@@ -36,22 +33,25 @@ export const SwapButton = () => {
 
   const handle = async () => {
     try {
-      setToastVisible(true);
-      setToastTitle("Processing");
-      setToastMessage("Processing your transaction");
+      showToast({
+        title: "Processing Transaction",
+        message: "Your transaction is being processed",
+      });
       const ix = await createSwapInstruction(quote);
       const result = await handleTx({ ix });
 
       if (result && result.signatures.length > 0) {
-        setToastTitle("Success");
-        setToastMessage("Your has been transaction completed sucessfully");
+        showToast({
+          title: "Success",
+          message: "Your transaction was processed sucessfully",
+        });
       }
     } catch (err) {
       console.error("Error:", err);
-      setToastTitle("Transaction Error");
-      setToastMessage("Error:" + err);
-    } finally {
-      setTimeout(() => setToastVisible(false), 3000);
+      showToast({
+        title: "Error",
+        message: "There was an error while processing your transaction",
+      });
     }
   };
 
@@ -64,7 +64,6 @@ export const SwapButton = () => {
       >
         <span>{connected ? "Swap" : "Connect Wallet"}</span>
       </Button>
-      {toastVisible && <Toast title={toastTitle} content={toastMessage} />}
     </>
   );
 };

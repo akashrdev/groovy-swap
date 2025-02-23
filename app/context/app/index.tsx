@@ -23,7 +23,7 @@ import {
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SelectedTokensProvider } from "../swap";
-import * as ToastPrimitive from "@radix-ui/react-toast";
+import { ToastProvider } from "../toast";
 
 export const AppProviders = ({ children }: { children: ReactNode }) => {
   const queryClient = new QueryClient();
@@ -54,10 +54,7 @@ export const AppProviders = ({ children }: { children: ReactNode }) => {
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
             <SelectedTokensProvider>
-              <ToastPrimitive.Provider swipeDirection="right">
-                {children}
-                <ToastPrimitive.Viewport className="fixed bottom-5 right-5 w-80" />
-              </ToastPrimitive.Provider>
+              <ToastProvider>{children}</ToastProvider>
             </SelectedTokensProvider>
           </WalletModalProvider>
         </WalletProvider>
