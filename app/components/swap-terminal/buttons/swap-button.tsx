@@ -1,15 +1,14 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Button } from "../../common/button";
-import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useSwap } from "@/app/context/swap";
 import { useGetQuote } from "@/app/hooks/use-get-quote";
 import { scaleApiInputAmount } from "@/app/utils/token-amounts/scale-api-input-amount";
 import { useHandleTx } from "@/app/hooks/use-handle-tx";
 import { useToast } from "@/app/context/toast";
+import { ConnectWalletButton } from "../../buttons/connect-wallet-button";
 
 export const SwapButton = () => {
   const { connected } = useWallet();
-  const { setVisible } = useWalletModal();
   const { showToast } = useToast();
   const {
     createSwapInstruction,
@@ -59,13 +58,13 @@ export const SwapButton = () => {
 
   return (
     <>
-      <Button
-        size="xl"
-        variant="primary"
-        onClick={() => (connected ? handle() : setVisible(true))}
-      >
-        <span>{connected ? "Swap" : "Connect Wallet"}</span>
-      </Button>
+      {connected ? (
+        <Button size="xl" variant="primary" onClick={handle}>
+          Swap
+        </Button>
+      ) : (
+        <ConnectWalletButton size="xl" />
+      )}
     </>
   );
 };

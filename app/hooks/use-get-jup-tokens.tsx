@@ -4,7 +4,7 @@ import { TokenItem } from "../types/token-item";
 
 const URL = "https://api.jup.ag/tokens/v1/tagged/verified";
 
-interface API_RESPONSE_ITEM extends Record<string, unknown> {
+export interface API_RESPONSE_ITEM extends Record<string, unknown> {
   address: string;
   decimals: number;
   logoURI: string;

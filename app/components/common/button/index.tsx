@@ -2,7 +2,8 @@ import { twMerge } from "tailwind-merge";
 import { sizeStyles, variantStyles } from "./styles";
 import { Slot } from "@radix-ui/react-slot";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
   variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
   size?: "sm" | "md" | "lg" | "xl";
@@ -20,7 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <Component
       className={twMerge(
-        "rounded-[10px] font-medium transition",
+        "rounded-[10px] font-medium transition cursor-pointer",
         variantStyles[variant],
         sizeStyles[size],
         className
