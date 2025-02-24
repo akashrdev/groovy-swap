@@ -61,8 +61,7 @@ export const ProfileContent = () => {
             logo: tokenInfo?.logo,
           };
         })
-        .filter((token) => !!token.balance && !!token.name)
-        .sort((a, b) => b.balance - a.balance);
+        .filter((token) => !!token.balance && !!token.name);
 
       const tokenPrices = await getUsdPrice({
         mintAddresses: processedTokens.map((token) => token.mintAddress),
@@ -71,21 +70,23 @@ export const ProfileContent = () => {
       let totalUsdBalance = 0;
       let maxHolding = { name: "", usdValue: 0 };
 
-      const tokensWithUsdValue = processedTokens.map((token) => {
-        const tokenPrice = tokenPrices[token.mintAddress] || 0;
-        const usdValue = token.balance * tokenPrice;
+      const tokensWithUsdValue = processedTokens
+        .map((token) => {
+          const tokenPrice = tokenPrices[token.mintAddress] || 0;
+          const usdValue = token.balance * tokenPrice;
 
-        totalUsdBalance += usdValue;
+          totalUsdBalance += usdValue;
 
-        if (usdValue > maxHolding.usdValue) {
-          maxHolding = { name: token.name, usdValue };
-        }
+          if (usdValue > maxHolding.usdValue) {
+            maxHolding = { name: token.name, usdValue };
+          }
 
-        return {
-          ...token,
-          usdValue,
-        };
-      });
+          return {
+            ...token,
+            usdValue,
+          };
+        })
+        .sort((a, b) => b.usdValue - a.usdValue);
 
       setUserTokenList(tokensWithUsdValue);
       setNumberTokensOwned(tokensWithUsdValue.length);
