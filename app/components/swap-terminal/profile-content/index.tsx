@@ -17,6 +17,7 @@ interface UserTokenListItem {
   name: string;
   symbol: string;
   balance: number;
+  usdValue: number;
 }
 
 export const ProfileContent = () => {
@@ -55,7 +56,7 @@ export const ProfileContent = () => {
             mintAddress: token.mintAddress,
             balance: token.balance,
             name:
-              tokenInfo?.name === "Wrapped SOL" ? "Solana" : tokenInfo?.name,
+              tokenInfo?.name === "Wrapped SOL" ? "Solana" : tokenInfo?.name, // ✅ Handle Wrapped SOL
             symbol: tokenInfo?.symbol,
             logo: tokenInfo?.logo,
           };
@@ -66,12 +67,12 @@ export const ProfileContent = () => {
       const tokenPrices = await getUsdPrice({
         mintAddresses: processedTokens.map((token) => token.mintAddress),
       });
-      console.log("tokenprices", tokenPrices);
+
       let totalUsdBalance = 0;
       let maxHolding = { name: "", usdValue: 0 };
 
-      processedTokens.forEach((token) => {
-        const tokenPrice = tokenPrices[token.mintAddress];
+      const tokensWithUsdValue = processedTokens.map((token) => {
+        const tokenPrice = tokenPrices[token.mintAddress] || 0;
         const usdValue = token.balance * tokenPrice;
 
         totalUsdBalance += usdValue;
@@ -79,10 +80,15 @@ export const ProfileContent = () => {
         if (usdValue > maxHolding.usdValue) {
           maxHolding = { name: token.name, usdValue };
         }
+
+        return {
+          ...token,
+          usdValue,
+        };
       });
 
-      setUserTokenList(processedTokens);
-      setNumberTokensOwned(processedTokens.length);
+      setUserTokenList(tokensWithUsdValue);
+      setNumberTokensOwned(tokensWithUsdValue.length);
       setTotalUsdBalance(totalUsdBalance);
       setLargestHoldingToken(maxHolding);
     };
@@ -110,6 +116,7 @@ export const ProfileContent = () => {
               tokenBalance={token.balance}
               tokenName={token.name}
               tokenLogo={token.logo}
+              usdValue={token.usdValue}
             />
           ))}
         </div>
