@@ -24,11 +24,14 @@ export const ProfileContentOverview = ({
     { label: "Total value", value: `$${formattedUsdTotal}` },
     { label: "Total tokens", value: totalTokensOwned },
     { label: "Largest holding", value: largestHolding },
-    { label: "Largest holding value", value: formattedLargestHoldingValue },
+    {
+      label: "Largest holding value",
+      value: `$${formattedLargestHoldingValue}`,
+    },
   ];
 
   return (
-    <div className="w-full min-h-28 justify-between flex py-4 border-b border-b-secondary-border flex-col items-center gap-2">
+    <div className="w-full min-h-28 justify-between flex py-4 border-b border-b-secondary-border flex-col items-center gap-2 text-white">
       <div className="flex gap-1.5 items-center">
         <span className="font-semibold">{abbreviatedPubkey}</span>
         <SolscanButton account={publicKey?.toBase58() || ""} />
