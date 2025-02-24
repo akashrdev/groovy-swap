@@ -1,6 +1,7 @@
 import { round } from "@/app/utils/numbers/round";
 import { abbreviate } from "@/app/utils/pubkey/abbreviate";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { SolscanButton } from "../../buttons/solscan-button";
 
 export const ProfileContentOverview = ({
   totalUsdBalance,
@@ -27,13 +28,21 @@ export const ProfileContentOverview = ({
 
   return (
     <div className="w-full min-h-24 justify-between flex py-4 border-b border-b-secondary-border flex-col items-center gap-2">
-      <span className="font-semibold">{abbreviatedPubkey}</span>
+      <div className="flex gap-1.5 items-center">
+        <span className="font-semibold">{abbreviatedPubkey}</span>
+        <SolscanButton account={publicKey?.toBase58() || ""} />
+      </div>
+
       <div className="flex text-center justify-evenly items-start w-full overflow-x-auto">
         {userStats.map((stat) => {
           return (
-            <div key={stat.label} className="flex flex-col">
-              <span className="text-white/60">{stat.label}</span>
-              <span>{stat.value}</span>
+            <div key={stat.label} className="flex flex-col items-center">
+              <span className="text-white/60 sm:text-sm text-xs">
+                {stat.label}
+              </span>
+              <span className="font-semibold sm:text-sm text-xs">
+                {stat.value}
+              </span>
             </div>
           );
         })}
