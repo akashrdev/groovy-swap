@@ -4,13 +4,13 @@ import { getFormattedAmount } from "@/app/utils/token-amounts/get-formatted-amou
 import { scaleApiInputAmount } from "@/app/utils/token-amounts/scale-api-input-amount";
 import { useGetQuote } from "@/app/hooks/use-get-quote";
 import { useForm, Controller } from "react-hook-form";
-import { useGetUsdPrice } from "@/app/hooks/use-get-usd-price";
 import { round } from "@/app/utils/numbers/round";
 import { useGetWalletTokensBalance } from "@/app/hooks/use-get-wallet-token-balance";
 import { useEffect, useState } from "react";
 import { DEFAULT_TOKEN_LIST } from "@/app/constants/token-list";
 import { WalletMinimalIcon } from "lucide-react";
 import { InputMaxlBalanceButton } from "../buttons/input-max-balance-button";
+import { getUsdPrice } from "@/app/utils/price/get-usd-price";
 
 const decimalsAndEmptyInputAllowed = /^\d*\.?\d*$/;
 
@@ -19,6 +19,7 @@ export const TokenAmountInput = ({
 }: {
   tokenDirection: TOKEN_DIRECTION;
 }) => {
+  const [usdPrice, setUsdPrice] = useState(0);
   const {
     setInputAmount,
     inputAmount,
@@ -49,12 +50,26 @@ export const TokenAmountInput = ({
   });
   const { control, setValue } = formMethods;
 
-  const { data: usdPrice } = useGetUsdPrice({
-    mintAddress:
-      tokenDirection === TOKEN_DIRECTION.INPUT
-        ? selectedInputToken.mintAddress
-        : selectedOutputToken.mintAddress,
-  });
+  useEffect(() => {
+    const getPrice = async () => {
+      const mintAddress =
+        tokenDirection === TOKEN_DIRECTION.INPUT
+          ? selectedInputToken.mintAddress
+          : selectedOutputToken.mintAddress;
+      const priceMap = await getUsdPrice({
+        mintAddresses: [mintAddress],
+      });
+
+      const price = priceMap[mintAddress];
+      setUsdPrice(price);
+    };
+
+    getPrice();
+  }, [
+    selectedInputToken.mintAddress,
+    selectedOutputToken.mintAddress,
+    tokenDirection,
+  ]);
 
   const { data: walletTokenBalance } = useGetWalletTokensBalance();
 

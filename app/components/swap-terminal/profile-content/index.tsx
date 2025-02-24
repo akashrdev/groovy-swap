@@ -4,44 +4,90 @@ import {
   API_RESPONSE_ITEM,
   useGetJupTokens,
 } from "@/app/hooks/use-get-jup-tokens";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { DEFAULT_TOKEN_LIST } from "@/app/constants/token-list";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { ConnectWalletButton } from "../../buttons/connect-wallet-button";
+import { ProfileContentOverview } from "./profile-content-overview";
+import { getUsdPrice } from "@/app/utils/price/get-usd-price";
+
+interface UserTokenListItem {
+  mintAddress: string;
+  logo: string;
+  name: string;
+  symbol: string;
+  balance: number;
+}
 
 export const ProfileContent = () => {
   const { data: tokenList } = useGetJupTokens();
   const { data: walletData } = useGetWalletTokensBalance();
   const { connected } = useWallet();
 
-  const userTokenList = useMemo(() => {
-    if (!walletData || !tokenList) return [];
+  const [userTokenList, setUserTokenList] = useState<UserTokenListItem[]>([]);
+  const [numberTokensOwned, setNumberTokensOwned] = useState(0);
+  const [totalUsdBalance, setTotalUsdBalance] = useState(0);
+  const [largestHoldingToken, setLargestHoldingToken] = useState({
+    name: "",
+    usdValue: 0,
+  });
 
-    const tokenBalancesWithSOL = [
-      ...walletData.tokenBalances,
-      {
-        mintAddress: DEFAULT_TOKEN_LIST.SOL.mintAddress,
-        balance: walletData.formattedSolBalance,
-        decimals: DEFAULT_TOKEN_LIST.SOL.decimals,
-      },
-    ];
+  useEffect(() => {
+    const fetchBalances = async () => {
+      if (!walletData || !tokenList) return;
 
-    return tokenBalancesWithSOL
-      .map((token) => {
-        const tokenInfo = tokenList.find(
-          (t: API_RESPONSE_ITEM) => t.mintAddress === token.mintAddress
-        );
+      const tokenBalancesWithSOL = [
+        ...walletData.tokenBalances,
+        {
+          mintAddress: DEFAULT_TOKEN_LIST.SOL.mintAddress,
+          balance: walletData.formattedSolBalance,
+          decimals: DEFAULT_TOKEN_LIST.SOL.decimals,
+        },
+      ];
 
-        return {
-          mintAddress: token.mintAddress,
-          balance: token.balance,
-          name: tokenInfo?.name,
-          symbol: tokenInfo?.symbol,
-          logo: tokenInfo?.logo,
-        };
-      })
-      .filter((token) => !!token.balance && !!token.name)
-      .sort((a, b) => b.balance - a.balance);
+      const processedTokens = tokenBalancesWithSOL
+        .map((token) => {
+          const tokenInfo = tokenList.find(
+            (t: API_RESPONSE_ITEM) => t.mintAddress === token.mintAddress
+          );
+
+          return {
+            mintAddress: token.mintAddress,
+            balance: token.balance,
+            name:
+              tokenInfo?.name === "Wrapped SOL" ? "Solana" : tokenInfo?.name,
+            symbol: tokenInfo?.symbol,
+            logo: tokenInfo?.logo,
+          };
+        })
+        .filter((token) => !!token.balance && !!token.name)
+        .sort((a, b) => b.balance - a.balance);
+
+      const tokenPrices = await getUsdPrice({
+        mintAddresses: processedTokens.map((token) => token.mintAddress),
+      });
+      console.log("tokenprices", tokenPrices);
+      let totalUsdBalance = 0;
+      let maxHolding = { name: "", usdValue: 0 };
+
+      processedTokens.forEach((token) => {
+        const tokenPrice = tokenPrices[token.mintAddress];
+        const usdValue = token.balance * tokenPrice;
+
+        totalUsdBalance += usdValue;
+
+        if (usdValue > maxHolding.usdValue) {
+          maxHolding = { name: token.name, usdValue };
+        }
+      });
+
+      setUserTokenList(processedTokens);
+      setNumberTokensOwned(processedTokens.length);
+      setTotalUsdBalance(totalUsdBalance);
+      setLargestHoldingToken(maxHolding);
+    };
+
+    fetchBalances();
   }, [walletData, tokenList]);
 
   return (
@@ -51,12 +97,18 @@ export const ProfileContent = () => {
           <ConnectWalletButton />
         </div>
       ) : (
-        <div className="w-full h-full overflow-y-auto">
-          {userTokenList.map((token) => (
+        <div className="w-full h-full overflow-y-auto flex flex-col">
+          <ProfileContentOverview
+            totalUsdBalance={totalUsdBalance}
+            totalTokensOwned={numberTokensOwned}
+            largestHolding={largestHoldingToken.name}
+            largestHoldingValue={largestHoldingToken.usdValue}
+          />
+          {userTokenList.map((token: UserTokenListItem) => (
             <ProfileContentItem
               key={token.mintAddress}
               tokenBalance={token.balance}
-              tokenName={token.name === "Wrapped SOL" ? "Solana" : token.name} // Abstract WSOL, functionally the same as SOL
+              tokenName={token.name}
               tokenLogo={token.logo}
             />
           ))}
