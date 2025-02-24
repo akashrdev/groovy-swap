@@ -56,7 +56,7 @@ export const ProfileContent = () => {
             mintAddress: token.mintAddress,
             balance: token.balance,
             name:
-              tokenInfo?.name === "Wrapped SOL" ? "Solana" : tokenInfo?.name, // ✅ Handle Wrapped SOL
+              tokenInfo?.name === "Wrapped SOL" ? "Solana" : tokenInfo?.name,
             symbol: tokenInfo?.symbol,
             logo: tokenInfo?.logo,
           };

@@ -18,6 +18,7 @@ export const ProfileContentOverview = ({
   const abbreviatedPubkey = abbreviate(publicKey);
   const formattedUsdTotal = round(totalUsdBalance);
   const formattedLargestHoldingValue = round(largestHoldingValue);
+  const isEmptyWallet = totalTokensOwned === 0;
 
   const userStats = [
     { label: "Total value", value: `$${formattedUsdTotal}` },
@@ -40,13 +41,18 @@ export const ProfileContentOverview = ({
               <span className="text-white/60 sm:text-sm text-xs">
                 {stat.label}
               </span>
-              <span className="font-semibold sm:text-sm text-xs">
-                {stat.value}
-              </span>
+              {!isEmptyWallet && (
+                <span className="font-semibold sm:text-sm text-xs">
+                  {stat.value}
+                </span>
+              )}
             </div>
           );
         })}
       </div>
+      {isEmptyWallet && (
+        <span className="font-semibold text-sm">No tokens found</span>
+      )}
     </div>
   );
 };
