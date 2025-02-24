@@ -15,7 +15,7 @@ export const SwapTerminal = () => {
   return (
     <div className="flex flex-col sm:w-[500px] w-full">
       <div className="flex justify-end mr-2.5">
-        <TerminalTabs setTab={setTab} />
+        <TerminalTabs setTab={setTab} tab={tab} />
       </div>
       <div className="relative border bg-secondary-dark border-secondary-card rounded-xl min-h-[450px] flex flex-col flex-1">
         {tab === SWAP_TERMINAL_TAB.SWAP ? <SwapContent /> : <ProfileContent />}
