@@ -13,11 +13,11 @@ export enum SWAP_TERMINAL_TAB {
 export const SwapTerminal = () => {
   const [tab, setTab] = useState<SWAP_TERMINAL_TAB>(SWAP_TERMINAL_TAB.SWAP);
   return (
-    <div className="flex flex-col sm:w-[500px] w-full">
+    <div className="flex flex-col sm:w-[500px]  w-full">
       <div className="flex justify-end mr-2.5">
         <TerminalTabs setTab={setTab} tab={tab} />
       </div>
-      <div className="relative border bg-secondary-dark border-secondary-card rounded-xl min-h-[450px] flex flex-col flex-1">
+      <div className="relative border bg-secondary-dark border-secondary-card rounded-xl h-[450px] flex flex-col">
         {tab === SWAP_TERMINAL_TAB.SWAP ? <SwapContent /> : <ProfileContent />}
       </div>
       <Disclaimer />

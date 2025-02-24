@@ -104,22 +104,24 @@ export const ProfileContent = () => {
           <ConnectWalletButton />
         </div>
       ) : (
-        <div className="w-full h-full overflow-y-auto flex flex-col">
+        <div className="w-full h-full flex flex-col">
           <ProfileContentOverview
             totalUsdBalance={totalUsdBalance}
             totalTokensOwned={numberTokensOwned}
             largestHolding={largestHoldingToken.name}
             largestHoldingValue={largestHoldingToken.usdValue}
           />
-          {userTokenList.map((token: UserTokenListItem) => (
-            <ProfileContentItem
-              key={token.mintAddress}
-              tokenBalance={token.balance}
-              tokenName={token.name}
-              tokenLogo={token.logo}
-              usdValue={token.usdValue}
-            />
-          ))}
+          <div className="h-full overflow-y-auto">
+            {userTokenList.map((token: UserTokenListItem) => (
+              <ProfileContentItem
+                key={token.mintAddress}
+                tokenBalance={token.balance}
+                tokenName={token.name}
+                tokenLogo={token.logo}
+                usdValue={token.usdValue}
+              />
+            ))}
+          </div>
         </div>
       )}
     </>

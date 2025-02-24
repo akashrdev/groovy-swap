@@ -28,7 +28,7 @@ export const ProfileContentOverview = ({
   ];
 
   return (
-    <div className="w-full min-h-24 justify-between flex py-4 border-b border-b-secondary-border flex-col items-center gap-2">
+    <div className="w-full min-h-28 justify-between flex py-4 border-b border-b-secondary-border flex-col items-center gap-2">
       <div className="flex gap-1.5 items-center">
         <span className="font-semibold">{abbreviatedPubkey}</span>
         <SolscanButton account={publicKey?.toBase58() || ""} />
