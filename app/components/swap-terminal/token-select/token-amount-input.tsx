@@ -121,7 +121,7 @@ export const TokenAmountInput = ({
       <div className="flex absolute top-[-28px] left-1 text-white/60 items-center justify-between w-full">
         <div className="flex gap-1 items-center">
           <WalletMinimalIcon height={15} width={15} />
-          <span className="text-sm">{displayedBalance}</span>
+          <span className="sm:text-sm text-xs">{displayedBalance}</span>
         </div>
 
         {tokenDirection === TOKEN_DIRECTION.INPUT && (
@@ -139,7 +139,7 @@ export const TokenAmountInput = ({
           <input
             {...field}
             className={twMerge(
-              "h-16  bg-inherit rounded-xl text-white bg-secondary-card sm:px-5 py-5 px-3  sm:text-base text-sm",
+              "sm:h-16 h-14  bg-inherit rounded-xl text-white bg-secondary-card sm:px-5 py-5 px-2  sm:text-base text-sm",
               tokenDirection === TOKEN_DIRECTION.INPUT
                 ? "cursor-text"
                 : "cursor-not-allowed"

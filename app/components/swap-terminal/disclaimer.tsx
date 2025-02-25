@@ -1,6 +1,6 @@
 export const Disclaimer = () => {
   return (
-    <span className="text-white/60 text-sm text-center">
+    <span className="text-white/60 sm:text-sm text-xs text-center">
       To protect Groovy Swap users, only tokens from the Jupiter Ecosystem List
       are tradeable. Learn more{" "}
       <a
