@@ -20,7 +20,7 @@ export const SwapTerminal = () => {
       <div className="relative border bg-secondary-dark border-secondary-card rounded-xl h-[450px] flex flex-col">
         {tab === SWAP_TERMINAL_TAB.SWAP ? <SwapContent /> : <ProfileContent />}
       </div>
-      <Disclaimer />
+      <Disclaimer className="mt-2" />
     </div>
   );
 };
