@@ -15,7 +15,7 @@ export const useGetWalletTokensBalance = () => {
     const tokenAccounts = await connection.getParsedTokenAccountsByOwner(
       publicKey,
       {
-        programId: TOKEN_PROGRAM_ID,
+        programId: TOKEN_PROGRAM_ID
       }
     );
     const tokenBalances = tokenAccounts.value.map((account) => {
@@ -24,17 +24,17 @@ export const useGetWalletTokensBalance = () => {
       return {
         mintAddress: mint,
         balance: tokenAmount.uiAmount,
-        decimals: tokenAmount.decimals,
+        decimals: tokenAmount.decimals
       };
     });
-
     return {
       formattedSolBalance,
-      tokenBalances,
+      tokenBalances
     };
   };
+
   return useQuery({
-    queryKey: ["tokenBalances", publicKey],
-    queryFn,
+    queryKey: ["tokenBalances", publicKey?.toBase58()],
+    queryFn
   });
 };

@@ -6,11 +6,12 @@ import { useGetQuote } from "@/app/hooks/use-get-quote";
 import { useForm, Controller } from "react-hook-form";
 import { round } from "@/app/utils/numbers/round";
 import { useGetWalletTokensBalance } from "@/app/hooks/use-get-wallet-token-balance";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { DEFAULT_TOKEN_LIST } from "@/app/constants/token-list";
 import { WalletMinimalIcon } from "lucide-react";
 import { InputMaxlBalanceButton } from "../buttons/input-max-balance-button";
 import { useGetUsdPrice } from "@/app/hooks/use-get-usd-price";
+import { normalizeDecimalInput } from "@/app/utils/numbers/normalize-decimal-input";
 
 const decimalsAndEmptyInputAllowed = /^\d*\.?\d*$/;
 
@@ -61,36 +62,34 @@ export const TokenAmountInput = ({
   const usdTotal = (usdPrice ?? 0) * Number(inputAmount);
 
   const formattedUsdTotal = round(usdTotal);
-  const [outputTokenBalance, setOutputTokenBalance] = useState(0);
-  const [inputTokenBalance, setInputTokenBalance] = useState(0);
 
-  useEffect(() => {
-    if (!walletTokenBalance) return;
+  const inputTokenBalance = useMemo(() => {
+    if (!walletTokenBalance) return 0;
 
     if (selectedInputToken.mintAddress === DEFAULT_TOKEN_LIST.SOL.mintAddress) {
-      setInputTokenBalance(walletTokenBalance.formattedSolBalance || 0);
+      return walletTokenBalance.formattedSolBalance || 0;
     } else {
       const inputToken = walletTokenBalance.tokenBalances?.find(
         (token) => token.mintAddress === selectedInputToken.mintAddress
       );
-      setInputTokenBalance(inputToken?.balance || 0);
+      return inputToken?.balance || 0;
     }
+  }, [walletTokenBalance, selectedInputToken.mintAddress]);
+
+  const outputTokenBalance = useMemo(() => {
+    if (!walletTokenBalance) return 0;
 
     if (
       selectedOutputToken.mintAddress === DEFAULT_TOKEN_LIST.SOL.mintAddress
     ) {
-      setOutputTokenBalance(walletTokenBalance.formattedSolBalance || 0);
+      return walletTokenBalance.formattedSolBalance || 0;
     } else {
       const outputToken = walletTokenBalance.tokenBalances?.find(
         (token) => token.mintAddress === selectedOutputToken.mintAddress
       );
-      setOutputTokenBalance(outputToken?.balance || 0);
+      return outputToken?.balance || 0;
     }
-  }, [
-    walletTokenBalance,
-    selectedInputToken.mintAddress,
-    selectedOutputToken.mintAddress
-  ]);
+  }, [walletTokenBalance, selectedOutputToken.mintAddress]);
 
   useEffect(() => {
     setValue("amount", inputAmount.toString());
@@ -137,11 +136,11 @@ export const TokenAmountInput = ({
                   : formattedOutputAmount
             }
             onChange={(e) => {
-              const value = e.target.value;
+              const value = normalizeDecimalInput(e.target.value);
 
               if (value === "" || decimalsAndEmptyInputAllowed.test(value)) {
                 setValue("amount", value);
-                setInputAmount(value === "" ? "" : Number(value));
+                setInputAmount(value);
               }
             }}
             disabled={tokenDirection === TOKEN_DIRECTION.OUTPUT}

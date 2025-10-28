@@ -15,7 +15,7 @@ export const SolscanButton = ({
   tx,
   iconHeight,
   iconWidth,
-  className,
+  className
 }: SolscanButtonProps) => {
   const solScanLink = account
     ? `https://solscan.io/account/${account}`
