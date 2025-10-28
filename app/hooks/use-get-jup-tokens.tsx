@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { TokenItem } from "../types/token-item";
 
-const URL = "https://api.jup.ag/tokens/v1/tagged/verified";
+const URL = "https://lite-api.jup.ag/tokens/v2/tag?query=verified";
 
-export interface API_RESPONSE_ITEM extends Record<string, unknown> {
-  address: string;
+export interface API_RESPONSE_ITEM {
+  id: string;
   decimals: number;
-  logoURI: string;
+  icon: string;
   symbol: string;
   name: string;
 }
@@ -18,17 +18,17 @@ export const useGetJupTokens = () => {
     return data.map(
       (token: API_RESPONSE_ITEM): TokenItem =>
         ({
-          mintAddress: token.address,
+          mintAddress: token.id,
           symbol: token.symbol,
-          logo: token.logoURI,
+          logo: token.icon,
           decimals: token.decimals,
-          name: token.name,
-        } as TokenItem)
+          name: token.name
+        }) as TokenItem
     );
   };
 
   return useQuery({
     queryKey: ["jupTokens"],
-    queryFn,
+    queryFn
   });
 };

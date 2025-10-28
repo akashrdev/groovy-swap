@@ -8,7 +8,7 @@ import { TokenSelectSearch } from "./token-select-search";
 import { useForm } from "react-hook-form";
 
 export const TokenSelectDialogContent = ({
-  tokenDirection,
+  tokenDirection
 }: {
   tokenDirection: TOKEN_DIRECTION;
 }) => {
@@ -16,7 +16,7 @@ export const TokenSelectDialogContent = ({
   const initialDisplayedTokens = tokenList ? tokenList.slice(0, 50) : [];
 
   const { register, watch } = useForm<{ search: string }>({
-    defaultValues: { search: "" },
+    defaultValues: { search: "" }
   });
 
   const searchTerm = watch("search");
@@ -40,9 +40,9 @@ export const TokenSelectDialogContent = ({
           {isTokenListLoading ? (
             <TokenSelectDialogSkeleton />
           ) : (
-            filteredTokens.map((token: TokenItem) => {
+            filteredTokens.map((token: TokenItem, idx: number) => {
               return (
-                <Dialog.Close key={token.mintAddress}>
+                <Dialog.Close key={idx}>
                   <TokenSelectItem
                     tokenDirection={tokenDirection}
                     token={token}

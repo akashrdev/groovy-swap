@@ -4,7 +4,7 @@ import { Button } from "../../common/button";
 
 export const TerminalTabs = ({
   tab,
-  setTab,
+  setTab
 }: {
   tab: SWAP_TERMINAL_TAB;
   setTab: (tab: SWAP_TERMINAL_TAB) => void;
@@ -12,7 +12,6 @@ export const TerminalTabs = ({
   const isCurrentlySelected = (tabButton: SWAP_TERMINAL_TAB) => {
     return tab === tabButton;
   };
-  console.log("tab", tab);
 
   return (
     <div className="w-[200px] bg-secondary-dark h-10 rounded-t-xl border border-secondary-card">
