@@ -2,14 +2,13 @@ import { useGetWalletTokensBalance } from "@/app/hooks/use-get-wallet-token-bala
 import { ProfileContentItem } from "./profile-content-item";
 import {
   API_RESPONSE_ITEM,
-  useGetJupTokens,
+  useGetJupTokens
 } from "@/app/hooks/use-get-jup-tokens";
 import { useEffect, useState } from "react";
 import { DEFAULT_TOKEN_LIST } from "@/app/constants/token-list";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { ConnectWalletButton } from "../../buttons/connect-wallet-button";
 import { ProfileContentOverview } from "./profile-content-overview";
-import { getUsdPrice } from "@/app/utils/price/get-usd-price";
 
 interface UserTokenListItem {
   mintAddress: string;
@@ -30,7 +29,7 @@ export const ProfileContent = () => {
   const [totalUsdBalance, setTotalUsdBalance] = useState(0);
   const [largestHoldingToken, setLargestHoldingToken] = useState({
     name: "",
-    usdValue: 0,
+    usdValue: 0
   });
 
   useEffect(() => {
@@ -42,8 +41,8 @@ export const ProfileContent = () => {
         {
           mintAddress: DEFAULT_TOKEN_LIST.SOL.mintAddress,
           balance: walletData.formattedSolBalance,
-          decimals: DEFAULT_TOKEN_LIST.SOL.decimals,
-        },
+          decimals: DEFAULT_TOKEN_LIST.SOL.decimals
+        }
       ];
 
       const processedTokens = tokenBalancesWithSOL
@@ -58,13 +57,13 @@ export const ProfileContent = () => {
             name:
               tokenInfo?.name === "Wrapped SOL" ? "Solana" : tokenInfo?.name,
             symbol: tokenInfo?.symbol,
-            logo: tokenInfo?.logo,
+            logo: tokenInfo?.logo
           };
         })
         .filter((token) => !!token.balance && !!token.name);
 
       const tokenPrices = await getUsdPrice({
-        mintAddresses: processedTokens.map((token) => token.mintAddress),
+        mintAddresses: processedTokens.map((token) => token.mintAddress)
       });
 
       let totalUsdBalance = 0;
@@ -83,7 +82,7 @@ export const ProfileContent = () => {
 
           return {
             ...token,
-            usdValue,
+            usdValue
           };
         })
         .sort((a, b) => b.usdValue - a.usdValue);

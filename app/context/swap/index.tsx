@@ -74,7 +74,7 @@ export const SelectedTokensProvider = ({
     if (!publicKey) return { instructions: [], addressLookupTables: [] };
     try {
       const { data } = await axios.post(
-        "https://api.jup.ag/swap/v1/swap-instructions",
+        "https://lite-api.jup.ag/swap/v1/swap-instructions",
         {
           quoteResponse: quote,
           userPublicKey: publicKey.toBase58(),

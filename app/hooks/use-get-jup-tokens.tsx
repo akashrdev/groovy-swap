@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { TokenItem } from "../types/token-item";
 
-const URL = "https://api.jup.ag/tokens/v1/tagged/verified";
+const URL = "https://lite-api.jup.ag/tokens/v2/tag?query=verified";
 
-export interface API_RESPONSE_ITEM extends Record<string, unknown> {
+export interface API_RESPONSE_ITEM {
   address: string;
   decimals: number;
   logoURI: string;
@@ -20,15 +20,15 @@ export const useGetJupTokens = () => {
         ({
           mintAddress: token.address,
           symbol: token.symbol,
-          logo: token.logoURI,
+          logo: token.icon,
           decimals: token.decimals,
-          name: token.name,
-        } as TokenItem)
+          name: token.name
+        }) as TokenItem
     );
   };
 
   return useQuery({
     queryKey: ["jupTokens"],
-    queryFn,
+    queryFn
   });
 };

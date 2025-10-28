@@ -34,13 +34,13 @@ export interface APIResponseQuote {
 export const useGetQuote = ({
   inputTokenMint,
   outputTokenMint,
-  inputAmount,
+  inputAmount
 }: {
   inputTokenMint: string;
   outputTokenMint: string;
   inputAmount: number;
 }) => {
-  const URL = `https://api.jup.ag/swap/v1/quote?inputMint=${inputTokenMint}&outputMint=${outputTokenMint}&amount=${inputAmount}&slippageBps=50&restrictIntermediateTokens=true`;
+  const URL = `https://lite-api.jup.ag/swap/v1/quote?inputMint=${inputTokenMint}&outputMint=${outputTokenMint}&amount=${inputAmount}&slippageBps=50&restrictIntermediateTokens=true`;
   const queryFn = async () => {
     const { data } = await axios.get(URL);
     return data;
@@ -49,6 +49,6 @@ export const useGetQuote = ({
   return useQuery({
     queryKey: ["quote", inputTokenMint, outputTokenMint, inputAmount],
     queryFn,
-    enabled: !!inputAmount,
+    enabled: !!inputAmount
   });
 };
