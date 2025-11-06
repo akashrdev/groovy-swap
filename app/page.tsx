@@ -1,4 +1,4 @@
-import { SwapTerminal } from "./components/swap-terminal";
+import { SwapTerminal } from "./_components/swap-terminal";
 
 const Home = () => {
   return (
