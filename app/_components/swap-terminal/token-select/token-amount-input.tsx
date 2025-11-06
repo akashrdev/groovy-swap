@@ -1,5 +1,4 @@
 import { twMerge } from "tailwind-merge";
-import { TOKEN_DIRECTION, useSwap } from "@/app/_context/swap";
 import { getFormattedAmount } from "@/app/_utils/token-amounts/get-formatted-amount";
 import { scaleApiInputAmount } from "@/app/_utils/token-amounts/scale-api-input-amount";
 import { useGetQuote } from "@/app/_hooks/use-get-quote";
@@ -12,6 +11,8 @@ import { WalletMinimalIcon } from "lucide-react";
 import { InputMaxlBalanceButton } from "../buttons/input-max-balance-button";
 import { useGetUsdPrice } from "@/app/_hooks/use-get-usd-price";
 import { normalizeDecimalInput } from "@/app/_utils/numbers/normalize-decimal-input";
+import { Skeleton } from "../../common/skeleton";
+import { TOKEN_DIRECTION, useSwapStore } from "../../_stores/useSwapStore";
 
 const decimalsAndEmptyInputAllowed = /^\d*\.?\d*$/;
 
@@ -25,7 +26,7 @@ export const TokenAmountInput = ({
     inputAmount,
     selectedInputToken,
     selectedOutputToken
-  } = useSwap();
+  } = useSwapStore();
 
   const formattedInputAmount = scaleApiInputAmount(
     inputAmount,
@@ -57,7 +58,7 @@ export const TokenAmountInput = ({
   });
   const { control, setValue } = formMethods;
 
-  const { data: walletTokenBalance } = useGetWalletTokensBalance();
+  const { data: walletTokenBalance, isLoading } = useGetWalletTokensBalance();
 
   const usdTotal = (usdPrice ?? 0) * Number(inputAmount);
 
@@ -105,7 +106,11 @@ export const TokenAmountInput = ({
       <div className="flex absolute top-[-28px] left-1 text-white/60 items-center justify-between w-full">
         <div className="flex gap-1 items-center">
           <WalletMinimalIcon height={15} width={15} />
-          <span className="sm:text-sm text-xs">{displayedBalance}</span>
+          {!isLoading ? (
+            <span className="sm:text-sm text-xs">{displayedBalance}</span>
+          ) : (
+            <Skeleton className="w-28 h-5 rounded-md" />
+          )}
         </div>
 
         {tokenDirection === TOKEN_DIRECTION.INPUT && (

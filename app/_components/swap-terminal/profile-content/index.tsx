@@ -4,6 +4,7 @@ import { useGetPortfolio } from "@/app/_hooks/use-get-portfolio";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { ConnectWalletButton } from "../../buttons/connect-wallet-button";
 import { ProfileContentOverview } from "./profile-content-overview";
+import { Skeleton } from "../../common/skeleton";
 
 interface UserTokenListItem {
   mintAddress: string;
@@ -16,7 +17,7 @@ interface UserTokenListItem {
 
 export const ProfileContent = () => {
   const { connected } = useWallet();
-  const { userTokenList } = useGetPortfolio();
+  const { userTokenList, isLoading } = useGetPortfolio();
   return (
     <>
       {!connected ? (
@@ -27,15 +28,19 @@ export const ProfileContent = () => {
         <div className="w-full h-full flex flex-col">
           <ProfileContentOverview />
           <div className="h-full overflow-y-auto">
-            {userTokenList.map((token: UserTokenListItem) => (
-              <ProfileContentItem
-                key={token.mintAddress}
-                tokenBalance={token.balance}
-                tokenName={token.name}
-                tokenLogo={token.logo}
-                usdValue={token.usdValue}
-              />
-            ))}
+            {isLoading ? (
+              <Skeleton className="h-full rounded-b-lg" />
+            ) : (
+              userTokenList.map((token: UserTokenListItem) => (
+                <ProfileContentItem
+                  key={token.mintAddress}
+                  tokenBalance={token.balance}
+                  tokenName={token.name}
+                  tokenLogo={token.logo}
+                  usdValue={token.usdValue}
+                />
+              ))
+            )}
           </div>
         </div>
       )}

@@ -3,9 +3,9 @@ import { TokenItem } from "@/app/_types/token-item";
 import * as Dialog from "@radix-ui/react-dialog";
 import { TokenSelectItem } from "./token-select-item";
 import { TokenSelectDialogSkeleton } from "./token-select-skeleton";
-import { TOKEN_DIRECTION } from "@/app/_context/swap";
 import { TokenSelectSearch } from "./token-select-search";
 import { useForm } from "react-hook-form";
+import { TOKEN_DIRECTION } from "../../_stores/useSwapStore";
 
 export const TokenSelectDialogContent = ({
   tokenDirection

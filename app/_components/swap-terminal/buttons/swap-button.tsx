@@ -1,7 +1,7 @@
 "use client";
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { Button } from "../../common/button";
-import { useSwap } from "@/app/_context/swap";
+
 import { useGetQuote } from "@/app/_hooks/use-get-quote";
 import { scaleApiInputAmount } from "@/app/_utils/token-amounts/scale-api-input-amount";
 import { useHandleTx } from "@/app/_hooks/use-handle-tx";
@@ -9,8 +9,10 @@ import { useToast } from "@/app/_context/toast";
 import { ConnectWalletButton } from "../../buttons/connect-wallet-button";
 import { useQueryClient } from "@tanstack/react-query";
 import { sleep } from "@/app/_utils/sleep";
+import { useSwapStore } from "../../_stores/useSwapStore";
 
 export const SwapButton = () => {
+  const { connection } = useConnection();
   const { connected, publicKey } = useWallet();
   const { showToast } = useToast();
   const {
@@ -18,7 +20,7 @@ export const SwapButton = () => {
     selectedInputToken,
     selectedOutputToken,
     inputAmount
-  } = useSwap();
+  } = useSwapStore();
 
   const queryClient = useQueryClient();
 
@@ -41,8 +43,11 @@ export const SwapButton = () => {
         title: "Processing Transaction",
         message: "Your transaction is being processed"
       });
-      const { instructions, addressLookupTables } =
-        await createSwapInstruction(quote);
+      const { instructions, addressLookupTables } = await createSwapInstruction(
+        quote,
+        connection,
+        publicKey
+      );
       const result = await handleTx({ ix: instructions, addressLookupTables });
 
       if (result && result.signatures.length > 0) {

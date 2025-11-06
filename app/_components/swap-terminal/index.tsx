@@ -2,20 +2,16 @@
 import { Disclaimer } from "./disclaimer";
 import { TerminalTabs } from "./tabs";
 import { SwapContent } from "./swap-content";
-import { useState } from "react";
 import { ProfileContent } from "./profile-content";
 
-export enum SWAP_TERMINAL_TAB {
-  SWAP = "swap",
-  PROFILE = "profile",
-}
+import { SWAP_TERMINAL_TAB, useSwapStore } from "../_stores/useSwapStore";
 
 export const SwapTerminal = () => {
-  const [tab, setTab] = useState<SWAP_TERMINAL_TAB>(SWAP_TERMINAL_TAB.SWAP);
+  const { tab, setTab } = useSwapStore();
   return (
     <div className="flex flex-col sm:w-[500px]  w-full">
       <div className="flex justify-end mr-2.5">
-        <TerminalTabs setTab={setTab} tab={tab} />
+        <TerminalTabs setTab={setTab} tab={tab || SWAP_TERMINAL_TAB.SWAP} />
       </div>
       <div className="relative border bg-secondary-dark border-secondary-card rounded-xl h-[450px] flex flex-col">
         {tab === SWAP_TERMINAL_TAB.SWAP ? <SwapContent /> : <ProfileContent />}

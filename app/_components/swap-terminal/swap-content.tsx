@@ -1,8 +1,8 @@
-import { TOKEN_DIRECTION } from "@/app/_context/swap";
 import { TokenSelectSection } from "./token-select/token-select-section";
 import { Divider } from "../common/divider";
 import { SwitchDirectionButton } from "./buttons/switch-direction-button";
 import { SwapButton } from "./buttons/swap-button";
+import { TOKEN_DIRECTION } from "../_stores/useSwapStore";
 
 export const SwapContent = () => {
   return (

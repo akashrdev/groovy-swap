@@ -1,4 +1,4 @@
-import { TOKEN_DIRECTION, useSwap } from "@/app/_context/swap";
+import { TOKEN_DIRECTION, useSwapStore } from "../../_stores/useSwapStore";
 import { Button } from "../../common/button";
 import Image from "next/image";
 
@@ -7,7 +7,7 @@ export const TokenSelectTrigger = ({
 }: {
   tokenDirection: TOKEN_DIRECTION;
 }) => {
-  const { selectedInputToken, selectedOutputToken } = useSwap();
+  const { selectedInputToken, selectedOutputToken } = useSwapStore();
   const displayedToken =
     tokenDirection === TOKEN_DIRECTION.INPUT
       ? selectedInputToken

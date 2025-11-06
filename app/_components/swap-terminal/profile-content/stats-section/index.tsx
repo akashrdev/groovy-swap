@@ -28,7 +28,7 @@ export const StatsSection = () => {
   return (
     <div className="flex text-center justify-evenly items-start w-full overflow-x-auto">
       {userStats.map((stat) => {
-        return <StatItem key={stat.label} stat={stat} />;
+        return <StatItem key={stat.label} stat={stat} isLoading={isLoading} />;
       })}
       {isEmptyWallet && (
         <span className="font-semibold text-sm">No tokens found</span>

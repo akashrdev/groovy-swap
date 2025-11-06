@@ -1,7 +1,7 @@
-import { useSwap } from "@/app/_context/swap";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "../../common/button";
 import { twMerge } from "tailwind-merge";
+import { useSwapStore } from "../../_stores/useSwapStore";
 
 export const SwitchDirectionButton = ({
   className
@@ -13,7 +13,7 @@ export const SwitchDirectionButton = ({
     setSelectedInputToken,
     selectedInputToken,
     selectedOutputToken
-  } = useSwap();
+  } = useSwapStore();
 
   const handleSwitch = () => {
     setSelectedInputToken(selectedOutputToken);

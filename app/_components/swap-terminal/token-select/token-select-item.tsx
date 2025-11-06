@@ -1,8 +1,9 @@
 import { TokenItem } from "@/app/_types/token-item";
 import { abbreviate } from "@/app/_utils/pubkey/abbreviate";
 import Image from "next/image";
-import { TOKEN_DIRECTION, useSwap } from "@/app/_context/swap";
+
 import { DEFAULT_TOKEN_LIST } from "@/app/_constants/token-list";
+import { TOKEN_DIRECTION, useSwapStore } from "../../_stores/useSwapStore";
 
 export const TokenSelectItem = ({
   token,
@@ -11,7 +12,7 @@ export const TokenSelectItem = ({
   token: TokenItem;
   tokenDirection: TOKEN_DIRECTION;
 }) => {
-  const { setSelectedInputToken, setSelectedOutputToken } = useSwap();
+  const { setSelectedInputToken, setSelectedOutputToken } = useSwapStore();
   return (
     <div
       className="w-full h-20 hover:bg-primary-card-hover flex gap-2 items-start justify-center flex-col cursor-pointer p-3 rounded-xl"

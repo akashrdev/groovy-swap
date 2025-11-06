@@ -22,9 +22,8 @@ import {
 } from "@solana/wallet-adapter-react";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { SelectedTokensProvider } from "../swap";
+
 import { ToastProvider } from "../toast";
-import { ContactUsContextProvider } from "./contact-us";
 
 export const AppProviders = ({ children }: { children: ReactNode }) => {
   const queryClient = new QueryClient();
@@ -54,11 +53,7 @@ export const AppProviders = ({ children }: { children: ReactNode }) => {
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
-            <SelectedTokensProvider>
-              <ToastProvider>
-                <ContactUsContextProvider>{children}</ContactUsContextProvider>
-              </ToastProvider>
-            </SelectedTokensProvider>
+            <ToastProvider>{children}</ToastProvider>
           </WalletModalProvider>
         </WalletProvider>
       </ConnectionProvider>

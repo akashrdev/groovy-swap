@@ -1,6 +1,7 @@
 import { twMerge } from "tailwind-merge";
-import { SWAP_TERMINAL_TAB } from "..";
+
 import { Button } from "../../common/button";
+import { SWAP_TERMINAL_TAB } from "../../_stores/useSwapStore";
 
 export const TerminalTabs = ({
   tab,

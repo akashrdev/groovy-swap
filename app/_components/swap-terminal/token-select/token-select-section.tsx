@@ -1,6 +1,6 @@
-import { TOKEN_DIRECTION } from "@/app/_context/swap";
 import { TokenSelectDialog } from "./token-select-dialog";
 import { TokenAmountInput } from "./token-amount-input";
+import { TOKEN_DIRECTION } from "../../_stores/useSwapStore";
 
 export const TokenSelectSection = ({
   tokenDirection

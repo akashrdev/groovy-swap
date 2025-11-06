@@ -1,8 +1,8 @@
-import { useSwap } from "@/app/_context/swap";
+import { useSwapStore } from "../../_stores/useSwapStore";
 import { Button } from "../../common/button";
 
 export const InputMaxlBalanceButton = ({ balance }: { balance: number }) => {
-  const { setInputAmount } = useSwap();
+  const { setInputAmount } = useSwapStore();
 
   return (
     <Button
