@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${outfit.className} bg-primary-dark min-h-screen flex flex-col`}
+        className={`${outfit.className} bg-gradient-primary min-h-screen flex flex-col`}
       >
         <AppProviders>
           <Navbar />
