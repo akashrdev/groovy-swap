@@ -6,7 +6,7 @@ import { Button } from "../../common/button";
 const ranchers = Ranchers({ subsets: ["latin"], weight: "400" });
 export const Navbar = () => {
   return (
-    <div className="w-screen border-b border-b-primary-border sticky left-0 right-0 top-0 h-14 px-6 py-2 justify-between flex items-center z-10">
+    <div className="w-screen border-b border-b-primary-border sticky left-0 right-0 top-0 h-14 px-6 py-2 justify-between flex items-center z-10 backdrop-blur-md bg-black/10">
       <Button
         variant="ghost"
         className={`${ranchers.className} sm:text-4xl text-primary-btn text-xl p-0`}
