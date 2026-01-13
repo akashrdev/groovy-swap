@@ -4,7 +4,7 @@ export const Disclaimer = ({ className }: { className: string }) => {
   return (
     <span
       className={twMerge(
-        "text-white/60 sm:text-sm text-xs text-center",
+        "text-primary-brand/60 sm:text-sm text-xs text-center",
         className
       )}
     >
@@ -12,7 +12,7 @@ export const Disclaimer = ({ className }: { className: string }) => {
       are tradeable. Learn more{" "}
       <a
         href="https://www.jupresear.ch/t/get-your-token-a-community-tag-beta/18963"
-        className="text-sm text-primary-btn"
+        className="text-sm text-primary-brand"
       >
         here
       </a>

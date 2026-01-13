@@ -8,9 +8,11 @@ export const ProfileContentOverview = () => {
   const abbreviatedPubkey = abbreviate(publicKey);
 
   return (
-    <div className="w-full h-28 justify-between flex py-4 border-b border-b-secondary-border flex-col items-center gap-2 text-white overflow-clip">
+    <div className="w-full h-28 justify-between flex py-2 border-b border-b-primary-accent flex-col items-center gap-1 text-primary-brand overflow-clip">
       <div className="flex gap-1.5 items-center">
-        <span className="font-semibold">{abbreviatedPubkey}</span>
+        <span className="font-semibold sm:text-xl text-lg">
+          {abbreviatedPubkey}
+        </span>
         <SolscanButton account={publicKey?.toBase58() || ""} />
       </div>
       <StatsSection />

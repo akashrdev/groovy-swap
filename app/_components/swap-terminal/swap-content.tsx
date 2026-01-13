@@ -9,7 +9,7 @@ export const SwapContent = () => {
     <div className="w-full h-full gap-4 flex flex-col p-6">
       <TokenSelectSection tokenDirection={TOKEN_DIRECTION.INPUT} />
       <div className="relative w-full flex justify-center">
-        <Divider className="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 mx-auto border-secondary-card" />
+        <Divider className="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 mx-auto border-primary-accent" />
         <SwitchDirectionButton className="z-10 p-2 rounded-full" />
       </div>
       <TokenSelectSection tokenDirection={TOKEN_DIRECTION.OUTPUT} />

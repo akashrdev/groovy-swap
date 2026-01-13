@@ -21,15 +21,14 @@ export const WalletConnectMenu = () => {
     >
       <DropdownMenu.Trigger asChild>
         <Button
-          variant="primary"
-          size="md"
-          className="flex justify-center items-center gap-1 text-xs sm:text-base"
+          variant="outline"
+          className="flex justify-center items-center gap-1 text-base sm:text-lg py-1 px-4"
         >
           {displayedUser}
           {isMenuVisible ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
         </Button>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content className="px-3 py-2 flex flex-col gap-2 rounded-md bg-secondary items-center">
+      <DropdownMenu.Content className="px-3 py-1 flex flex-col gap-2 rounded-xl bg-secondary-accent items-center mt-0.5">
         <WalletConnectMenuActions />
       </DropdownMenu.Content>
     </DropdownMenu.Root>

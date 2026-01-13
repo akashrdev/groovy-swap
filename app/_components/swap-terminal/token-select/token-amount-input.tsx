@@ -102,12 +102,12 @@ export const TokenAmountInput = ({
       : `${outputTokenBalance} ${selectedOutputToken.symbol}`;
 
   return (
-    <div className="relative">
-      <div className="flex absolute top-[-28px] left-1 text-white/60 items-center justify-between w-full">
+    <div className="relative font-aeonik">
+      <div className="flex absolute top-[-28px] left-1 text-primary-accent items-center justify-between w-full">
         <div className="flex gap-1 items-center">
           <WalletMinimalIcon height={15} width={15} />
           {!isLoading ? (
-            <span className="sm:text-sm text-xs">{displayedBalance}</span>
+            <span className="sm:text-xs text-[10px]">{displayedBalance}</span>
           ) : (
             <Skeleton className="w-28 h-5 rounded-md" />
           )}
@@ -128,7 +128,7 @@ export const TokenAmountInput = ({
           <input
             {...field}
             className={twMerge(
-              "sm:h-16 h-14  bg-inherit rounded-xl text-white bg-secondary-card sm:px-5 py-5 px-2  sm:text-base text-sm",
+              "sm:h-16 h-14  rounded-xl text-primary-brand bg-secondary-accent sm:px-5 py-5 px-2  sm:text-sm text-xs",
               tokenDirection === TOKEN_DIRECTION.INPUT
                 ? "cursor-text"
                 : "cursor-not-allowed"
@@ -154,7 +154,7 @@ export const TokenAmountInput = ({
         )}
       />
       {tokenDirection === TOKEN_DIRECTION.INPUT && (
-        <span className="absolute bottom-[-28px] left-1 text-white/60">
+        <span className="absolute bottom-[-28px] left-1 text-primary-brand/60 sm:text-sm text-xs">
           ${formattedUsdTotal}
         </span>
       )}

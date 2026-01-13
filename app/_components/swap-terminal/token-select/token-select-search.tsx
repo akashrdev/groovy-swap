@@ -1,7 +1,7 @@
 import { UseFormRegister } from "react-hook-form";
 
 export const TokenSelectSearch = ({
-  register,
+  register
 }: {
   register: UseFormRegister<{ search: string }>;
 }) => {
@@ -10,7 +10,7 @@ export const TokenSelectSearch = ({
       <form>
         <input
           {...register("search")}
-          className="w-full px-4 py-2 rounded-md border border-primary-border bg-primary-card text-white"
+          className="w-full px-4 py-2 rounded-md border border-primary-accent bg-primary-card text-primary-brand"
           placeholder="Search token..."
         />
       </form>

@@ -31,7 +31,9 @@ export const StatsSection = () => {
         return <StatItem key={stat.label} stat={stat} isLoading={isLoading} />;
       })}
       {isEmptyWallet && (
-        <span className="font-semibold text-sm">No tokens found</span>
+        <span className="font-semibold sm:text-lg text-base">
+          No tokens found
+        </span>
       )}
     </div>
   );

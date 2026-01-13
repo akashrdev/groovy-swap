@@ -3,7 +3,7 @@ import "./globals.css";
 import { Navbar } from "./_components/navigation/navbar";
 import { AppProviders } from "./_context/app";
 import { Footer } from "./_components/navigation/footer";
-import { Outfit } from "next/font/google";
+import { aeonik, ppNeueBit } from "@/fonts";
 
 export const metadata: Metadata = {
   title: "Groovy Swap",
@@ -13,17 +13,15 @@ export const metadata: Metadata = {
   }
 };
 
-const outfit = Outfit({ subsets: ["latin"], weight: ["400", "500", "700"] });
-
 export default function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${ppNeueBit.variable} ${aeonik.variable}`}>
       <body
-        className={`${outfit.className} bg-gradient-primary min-h-screen flex flex-col`}
+        className={`${ppNeueBit.className} bg-white min-h-screen flex flex-col`}
       >
         <AppProviders>
           <Navbar />

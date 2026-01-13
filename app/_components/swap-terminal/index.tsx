@@ -13,7 +13,7 @@ export const SwapTerminal = () => {
       <div className="flex justify-end mr-2.5">
         <TerminalTabs setTab={setTab} tab={tab || SWAP_TERMINAL_TAB.SWAP} />
       </div>
-      <div className="relative border bg-gradient-secondary border-secondary-card rounded-xl h-[450px] flex flex-col">
+      <div className="relative border bg-gradient-secondary border-primary-accent rounded-xl h-[450px] flex flex-col">
         {tab === SWAP_TERMINAL_TAB.SWAP ? <SwapContent /> : <ProfileContent />}
       </div>
       <Disclaimer className="mt-2" />

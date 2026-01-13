@@ -15,13 +15,13 @@ export const TerminalTabs = ({
   };
 
   return (
-    <div className="w-[200px] bg-secondary-dark h-10 rounded-t-xl border border-secondary-card">
+    <div className="w-[200px] h-10 rounded-t-xl border border-b-0 border-primary-accent">
       <Button
         className={twMerge(
-          "w-1/2 text-white rounded-tl-xl rounded-tr-none rounded-b-none",
+          "w-1/2 text-primary-brand rounded-tl-xl rounded-tr-none rounded-b-none flex-1 h-full overflow-hidden",
           isCurrentlySelected(SWAP_TERMINAL_TAB.SWAP)
-            ? "bg-secondary-card"
-            : "bg-inherit"
+            ? "bg-secondary-accent"
+            : "bg-transparent "
         )}
         onClick={() => setTab(SWAP_TERMINAL_TAB.SWAP)}
       >
@@ -29,10 +29,10 @@ export const TerminalTabs = ({
       </Button>
       <Button
         className={twMerge(
-          "w-1/2  text-white rounded-tr-xl rounded-tl-none rounded-b-none border-l border-l-secondary-border",
+          "w-1/2  text-primary-brand rounded-tr-xl rounded-tl-none rounded-b-none border-l border-l-primary-accent flex-1 h-full overflow-hidden",
           isCurrentlySelected(SWAP_TERMINAL_TAB.PROFILE)
-            ? "bg-secondary-card"
-            : "bg-inherit"
+            ? "bg-secondary-accent"
+            : "bg-transparent"
         )}
         onClick={() => setTab(SWAP_TERMINAL_TAB.PROFILE)}
       >

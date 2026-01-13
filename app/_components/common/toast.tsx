@@ -14,7 +14,7 @@ export const Toast = ({
   return (
     <ToastPrimitive.Root
       {...props}
-      className="fixed bottom-5 right-5 z-[1000] bg-primary-card text-white p-4 rounded-lg shadow-lg"
+      className="fixed bottom-5 right-5 z-[1000] bg-primary-card text-primary-brand p-4 rounded-lg shadow-lg"
     >
       {title && (
         <ToastPrimitive.Title className="font-semibold text-lg">

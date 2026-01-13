@@ -6,7 +6,7 @@ export const WalletConnectMenuActions = () => {
   const { disconnect } = useWallet();
   const { setVisible } = useWalletModal();
   return (
-    <div className="bg-primary-card px-4 py-3 rounded-xl flex flex-col items-center gap-3 cursor-pointer">
+    <div className="bg-secondary-accent px-3 py-1 flex flex-col items-center gap-3 cursor-pointer text-primary-brand">
       <DropDownMenu.Item
         onClick={() => setVisible(true)}
         className="hover:bg-primary-card-hover py-1 px-2 rounded-lg"

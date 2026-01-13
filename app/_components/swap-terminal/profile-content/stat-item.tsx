@@ -10,9 +10,13 @@ export const StatItem = ({
 }) => {
   return (
     <div key={stat.label} className="flex flex-col items-center">
-      <span className="text-white/60 sm:text-sm text-xs">{stat.label}</span>
+      <span className="text-primary-accent sm:text-base text-sm">
+        {stat.label}
+      </span>
       {!isLoading ? (
-        <span className="font-semibold sm:text-sm text-xs">{stat.value}</span>
+        <span className="font-semibold sm:text-sm text-xs font-aeonik">
+          {stat.value}
+        </span>
       ) : (
         <Skeleton className="w-12 h-4 rounded-md" />
       )}

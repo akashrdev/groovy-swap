@@ -19,26 +19,15 @@ export default {
         }
       },
       colors: {
-        "primary-dark": "#272845",
-        "primary-card": "#3c3c58",
-        "primary-card-hover": "#69687f",
-        "primary-btn": "#0e9a83",
-        "primary-btn-hover": "#5cb19d",
-        "primary-border": "#69687f",
-        "secondary-dark": "#29334b",
-        "secondary-card": "#3e475d",
-        "secondary-card-hover": "#6b7183",
-        "secondary-border": "#6b7183"
-      },
-      backgroundImage: {
-        "gradient-primary":
-          "radial-gradient(ellipse at center, #3c3c58 0%, #272845 70%)",
-        "gradient-secondary":
-          "linear-gradient(180deg, #29334b 0%, #253041 100%)"
+        "primary-brand": "#5d4bff",
+        "primary-accent": "#5d4bffb2",
+        "secondary-accent": "#eeecfe",
+        "primary-card": "#b8b8b8",
+        "secondary-card": "#7a7a7a"
       },
       fontFamily: {
-        ranchers: ["Ranchers", "normal"],
-        outfit: ["Outfit", "sans-serif"]
+        aeonik: ["var(--font-aeonik)"],
+        ppneuebit: ["var(--font-ppneuebit)"]
       }
     }
   },

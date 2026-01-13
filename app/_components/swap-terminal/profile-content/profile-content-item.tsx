@@ -14,7 +14,7 @@ export const ProfileContentItem = ({
 }) => {
   const formattedUsdValue = round(usdValue);
   return (
-    <div className="w-full h-14 flex justify-between border-b border-b-secondary-border p-4">
+    <div className="w-full h-14 flex justify-between border-b border-b-primary-accent p-4 text-primary-brand ">
       <div className="flex gap-2 items-center">
         <Image
           src={tokenLogo}
@@ -23,11 +23,11 @@ export const ProfileContentItem = ({
           alt="token logo"
           className="rounded-full"
         />
-        <span className="text-white">{tokenName}</span>
+        <span className="sm:text-xl text-lg">{tokenName}</span>
       </div>
-      <div className="gap-1 flex items-center">
-        <span>{tokenBalance}</span>
-        <span className="text-white/60 text-sm">{`($${formattedUsdValue})`}</span>
+      <div className="gap-1 flex items-center font-aeonik">
+        <span className="sm:text-sm text-xs">{tokenBalance}</span>
+        <span className="sm:text-xs text-[10px] text-primary-accent">{`($${formattedUsdValue})`}</span>
       </div>
     </div>
   );

@@ -13,15 +13,11 @@ export const Input = ({
   return (
     <div
       className={twMerge(
-        "px-4 py-2 flex border border-secondary-border rounded-md bg-secondary-dark",
+        "px-4 py-2 flex border border-primary-accent rounded-md",
         containerClassName
       )}
     >
-      <input
-        className={twMerge("bg-secondary-dark", className)}
-        onChange={onChange}
-        {...props}
-      />
+      <input className={className} onChange={onChange} {...props} />
     </div>
   );
 };
