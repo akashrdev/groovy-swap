@@ -16,7 +16,7 @@ export const Navbar = () => {
   };
   const NAVBAR_ITEMS: NavbarItem[] = [
     { label: "Terminal", href: "/" },
-    { label: "Jito Block Engine Explorer", href: "/block-engine-explorer" }
+    { label: "Jito Latency Explorer", href: "/block-engine-explorer" }
   ];
   return (
     <div className="w-screen sticky left-0 right-0 top-0 px-10 py-4 justify-between flex items-center z-10 ">

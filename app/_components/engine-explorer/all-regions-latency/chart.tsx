@@ -1,20 +1,15 @@
 "use client";
 import * as d3 from "d3";
-import {
-  NETWORKS,
-  useGetAllRegionLatency
-} from "@/app/_hooks/block-engine-explorer/get-all-region-latency";
+import { useGetAllRegionLatency } from "@/app/_hooks/block-engine-explorer/get-all-region-latency";
 import { useRef, useEffect } from "react";
+import { useJitoNetwork } from "@/app/_hooks/block-engine-explorer/use-jito-network";
 
 const margin = { top: 40, right: 20, bottom: 90, left: 80 };
 const width = 800 - margin.left - margin.right;
 const height = 300 - margin.top - margin.bottom;
 
-export const AllRegionsBlockEngineBarChart = ({
-  currentNetwork
-}: {
-  currentNetwork: NETWORKS;
-}) => {
+export const AllRegionsBlockEngineBarChart = () => {
+  const { currentNetwork } = useJitoNetwork();
   const { data, isLoading } = useGetAllRegionLatency({
     network: currentNetwork
   });

@@ -24,6 +24,7 @@ import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { ToastProvider } from "../toast";
+import { JitoNetworkProvider } from "../jito-network";
 
 export const AppProviders = ({ children }: { children: ReactNode }) => {
   const queryClient = new QueryClient();
@@ -53,7 +54,9 @@ export const AppProviders = ({ children }: { children: ReactNode }) => {
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
-            <ToastProvider>{children}</ToastProvider>
+            <ToastProvider>
+              <JitoNetworkProvider>{children}</JitoNetworkProvider>
+            </ToastProvider>
           </WalletModalProvider>
         </WalletProvider>
       </ConnectionProvider>

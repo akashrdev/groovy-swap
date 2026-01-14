@@ -2,16 +2,11 @@
 
 import { DropdownMenu } from "radix-ui";
 import { Button } from "../../common/button";
-import { Dispatch, SetStateAction } from "react";
 import { ChevronDown } from "lucide-react";
 import { NETWORKS } from "@/app/_hooks/block-engine-explorer/get-all-region-latency";
-export const NetworkDropdown = ({
-  currentNetwork,
-  setCurrentNetwork
-}: {
-  currentNetwork: NETWORKS;
-  setCurrentNetwork: Dispatch<SetStateAction<NETWORKS>>;
-}) => {
+import { useJitoNetwork } from "@/app/_hooks/block-engine-explorer/use-jito-network";
+export const NetworkDropdown = () => {
+  const { currentNetwork, setCurrentNetwork } = useJitoNetwork();
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
