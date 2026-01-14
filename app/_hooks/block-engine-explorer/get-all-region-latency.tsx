@@ -25,12 +25,13 @@ export const useGetAllRegionLatency = ({
       network === NETWORKS.MAINNET
         ? BLOCK_ENGINE_REGIONS
         : TESTNET_BLOCK_ENGINE_REGIONS;
-    return Promise.all(
+    const results = await Promise.allSettled(
       regions.map((region) => {
         const endpoint = region + "." + BASE_URL;
         return getRegionLatency(endpoint, region);
       })
     );
+    return results.filter((r) => r.status === "fulfilled").map((r) => r.value);
   };
   return useQuery({
     queryFn: fn,

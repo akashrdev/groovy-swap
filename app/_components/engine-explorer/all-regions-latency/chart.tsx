@@ -76,13 +76,6 @@ export const AllRegionsBlockEngineBarChart = ({
 
     xAxisGroup.selectAll("line, path").attr("stroke", "#7a7a7a");
 
-    g.append("text")
-      .attr("x", width / 2)
-      .attr("y", height + 50)
-      .attr("text-anchor", "middle")
-      .attr("fill", "#7a7a7a")
-      .text("Region");
-
     // Y-axis
     const yAxisGroup = g.append("g").call(d3.axisLeft(yScale));
 
