@@ -1,6 +1,6 @@
-import { useGetPortfolio } from "@/app/_hooks/use-get-portfolio";
 import { round } from "@/app/_utils/numbers/round";
 import { StatItem } from "../stat-item";
+import { useGetPortfolio } from "@/app/_hooks/terminal/use-get-portfolio";
 
 export interface Stat {
   label: string;

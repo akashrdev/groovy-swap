@@ -1,4 +1,3 @@
-import { useGetPrimary } from "@/app/_hooks/use-get-primary";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useState } from "react";
@@ -6,6 +5,7 @@ import { abbreviate } from "@/app/_utils/pubkey/abbreviate";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { WalletConnectMenuActions } from "./menu-actions";
 import { Button } from "../../common/button";
+import { useGetPrimary } from "@/app/_hooks/terminal/use-get-primary";
 
 export const WalletConnectMenu = () => {
   const { connection } = useConnection();

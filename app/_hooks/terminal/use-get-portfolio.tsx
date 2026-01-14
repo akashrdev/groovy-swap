@@ -1,9 +1,10 @@
 import { useMemo } from "react";
 import { useGetJupTokens } from "./use-get-jup-tokens";
 import { useGetWalletTokensBalance } from "./use-get-wallet-token-balance";
-import { DEFAULT_TOKEN_LIST } from "../_constants/token-list";
+
 import { PriceResult, useGetUsdPrice } from "./use-get-usd-price";
-import { TokenItem } from "../_types/token-item";
+import { TokenItem } from "@/app/_types/token-item";
+import { DEFAULT_TOKEN_LIST } from "@/app/_constants/token-list";
 
 export const useGetPortfolio = () => {
   const { data: tokenList, isLoading: isTokenListLoading } = useGetJupTokens();

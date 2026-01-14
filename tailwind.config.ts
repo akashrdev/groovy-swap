@@ -13,9 +13,9 @@ export default {
       },
       keyframes: {
         "color-pulse": {
-          "0%": { backgroundColor: "#3c3c58" },
-          "50%": { backgroundColor: "#52526b" },
-          "100%": { backgroundColor: "#3c3c58" }
+          "0%": { backgroundColor: "#5d4bff40" },
+          "50%": { backgroundColor: "#5d4bff60" },
+          "100%": { backgroundColor: "#5d4bff40" }
         }
       },
       colors: {

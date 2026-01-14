@@ -1,7 +1,7 @@
 "use client";
 
 import { DEFAULT_TOKEN_LIST } from "@/app/_constants/token-list";
-import { APIResponseQuote } from "@/app/_hooks/use-get-quote";
+import { APIResponseQuote } from "@/app/_hooks/terminal/use-get-quote";
 import { TokenItem } from "@/app/_types/token-item";
 import {
   AddressLookupTableAccount,

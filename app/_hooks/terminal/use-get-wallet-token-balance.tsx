@@ -1,7 +1,7 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useQuery } from "@tanstack/react-query";
 import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
-import { DEFAULT_TOKEN_LIST } from "../_constants/token-list";
+import { DEFAULT_TOKEN_LIST } from "@/app/_constants/token-list";
 
 export const useGetWalletTokensBalance = () => {
   const { connection } = useConnection();

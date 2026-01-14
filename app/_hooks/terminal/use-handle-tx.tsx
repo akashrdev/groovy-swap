@@ -1,3 +1,4 @@
+import { chunkIx } from "@/app/_utils/transaction/chunk-ix";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import {
@@ -7,7 +8,6 @@ import {
   TransactionMessage,
   VersionedTransaction
 } from "@solana/web3.js";
-import { chunkIx } from "../_utils/transaction/chunk-ix";
 
 export const useHandleTx = () => {
   const { connection } = useConnection();

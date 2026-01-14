@@ -1,10 +1,9 @@
 import { ProfileContentItem } from "./profile-content-item";
-
-import { useGetPortfolio } from "@/app/_hooks/use-get-portfolio";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { ConnectWalletButton } from "../../buttons/connect-wallet-button";
 import { ProfileContentOverview } from "./profile-content-overview";
 import { Skeleton } from "../../common/skeleton";
+import { useGetPortfolio } from "@/app/_hooks/terminal/use-get-portfolio";
 
 interface UserTokenListItem {
   mintAddress: string;

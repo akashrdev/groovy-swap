@@ -2,14 +2,15 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { Button } from "../../common/button";
 
-import { useGetQuote } from "@/app/_hooks/use-get-quote";
 import { scaleApiInputAmount } from "@/app/_utils/token-amounts/scale-api-input-amount";
-import { useHandleTx } from "@/app/_hooks/use-handle-tx";
+
 import { useToast } from "@/app/_context/toast";
 import { ConnectWalletButton } from "../../buttons/connect-wallet-button";
 import { useQueryClient } from "@tanstack/react-query";
 import { sleep } from "@/app/_utils/sleep";
 import { useSwapStore } from "../../_stores/useSwapStore";
+import { useGetQuote } from "@/app/_hooks/terminal/use-get-quote";
+import { useHandleTx } from "@/app/_hooks/terminal/use-handle-tx";
 
 export const SwapButton = () => {
   const { connection } = useConnection();

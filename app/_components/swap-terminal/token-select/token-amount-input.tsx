@@ -1,18 +1,21 @@
 import { twMerge } from "tailwind-merge";
 import { getFormattedAmount } from "@/app/_utils/token-amounts/get-formatted-amount";
 import { scaleApiInputAmount } from "@/app/_utils/token-amounts/scale-api-input-amount";
-import { useGetQuote } from "@/app/_hooks/use-get-quote";
+
 import { useForm, Controller } from "react-hook-form";
 import { round } from "@/app/_utils/numbers/round";
-import { useGetWalletTokensBalance } from "@/app/_hooks/use-get-wallet-token-balance";
+
 import { useEffect, useMemo } from "react";
 import { DEFAULT_TOKEN_LIST } from "@/app/_constants/token-list";
 import { WalletMinimalIcon } from "lucide-react";
 import { InputMaxlBalanceButton } from "../buttons/input-max-balance-button";
-import { useGetUsdPrice } from "@/app/_hooks/use-get-usd-price";
+
 import { normalizeDecimalInput } from "@/app/_utils/numbers/normalize-decimal-input";
 import { Skeleton } from "../../common/skeleton";
 import { TOKEN_DIRECTION, useSwapStore } from "../../_stores/useSwapStore";
+import { useGetQuote } from "@/app/_hooks/terminal/use-get-quote";
+import { useGetUsdPrice } from "@/app/_hooks/terminal/use-get-usd-price";
+import { useGetWalletTokensBalance } from "@/app/_hooks/terminal/use-get-wallet-token-balance";
 
 const decimalsAndEmptyInputAllowed = /^\d*\.?\d*$/;
 
