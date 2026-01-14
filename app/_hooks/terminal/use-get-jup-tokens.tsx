@@ -1,6 +1,6 @@
+import { TokenItem } from "@/app/_types/token-item";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { TokenItem } from "../_types/token-item";
 
 const URL = "https://lite-api.jup.ag/tokens/v2/tag?query=verified";
 

@@ -1,10 +1,9 @@
-import { BlockEngineBarChart } from "../_components/engine-explorer/chart";
+import { AllRegionsLatencySection } from "../_components/engine-explorer/all-regions-latency";
 
 export default function BlockEngineExplorerPage() {
   return (
-    //TODO:Build explorer graph and page
     <div className="flex flex-col h-full justify-center items-center">
-      <BlockEngineBarChart />
+      <AllRegionsLatencySection />
     </div>
   );
 }

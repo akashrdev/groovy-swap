@@ -8,8 +8,8 @@ export const variantStyles = {
 };
 
 export const sizeStyles = {
-  sm: "px-2 py-1 text-base",
-  md: "px-3 py-2 text-lg",
-  lg: "px-4 py-2.5 text-xl",
-  xl: "px-6 py-3 text-2xl"
+  sm: "px-2 py-0.5 text-base",
+  md: "px-3 py-1 text-lg",
+  lg: "px-4 py-2 text-xl",
+  xl: "px-6 py-2.5 text-2xl"
 };

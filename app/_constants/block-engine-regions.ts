@@ -8,3 +8,5 @@ export const BLOCK_ENGINE_REGIONS = [
   "singapore",
   "tokyo"
 ];
+
+export const TESTNET_BLOCK_ENGINE_REGIONS = ["dallas", "ny"];

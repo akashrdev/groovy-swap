@@ -1,14 +1,23 @@
 "use client";
 import * as d3 from "d3";
-import { useGetAllRegionLatency } from "@/app/_hooks/block-engine-explorer/get-all-region-latency";
+import {
+  NETWORKS,
+  useGetAllRegionLatency
+} from "@/app/_hooks/block-engine-explorer/get-all-region-latency";
 import { useRef, useEffect } from "react";
 
 const margin = { top: 40, right: 20, bottom: 90, left: 80 };
 const width = 800 - margin.left - margin.right;
 const height = 300 - margin.top - margin.bottom;
 
-export const BlockEngineBarChart = () => {
-  const { data, isLoading } = useGetAllRegionLatency();
+export const AllRegionsBlockEngineBarChart = ({
+  currentNetwork
+}: {
+  currentNetwork: NETWORKS;
+}) => {
+  const { data, isLoading } = useGetAllRegionLatency({
+    network: currentNetwork
+  });
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -91,7 +100,7 @@ export const BlockEngineBarChart = () => {
   }, [data]);
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col items-center">
       {isLoading ? (
         <span className="text-2xl text-primary-brand">
           Measuring latencies...
