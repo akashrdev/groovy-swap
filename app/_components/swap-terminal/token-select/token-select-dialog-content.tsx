@@ -31,7 +31,7 @@ export const TokenSelectDialogContent = ({
       : initialDisplayedTokens;
 
   return (
-    <Dialog.Content className="fixed top-1/2 left-1/2 sm:w-[445px] w-full -translate-x-1/2 -translate-y-1/2 bg-primary-card rounded-lg shadow-lg  px-1 z-[11]">
+    <Dialog.Content className="fixed top-1/2 left-1/2 sm:w-[445px] w-full -translate-x-1/2 -translate-y-1/2 bg-secondary-accent rounded-lg shadow-lg px-1 z-[11]">
       <div className="relative flex flex-col gap-3 justify-start">
         <div className="sticky top-0">
           <TokenSelectSearch register={register} />

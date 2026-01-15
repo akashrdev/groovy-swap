@@ -14,7 +14,6 @@ export const AllRegionsLatencySection = () => {
           <NetworkDropdown />
         </div>
       )}
-
       <AllRegionsBlockEngineBarChart />
     </div>
   );
