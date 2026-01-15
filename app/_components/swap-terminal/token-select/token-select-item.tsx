@@ -15,7 +15,7 @@ export const TokenSelectItem = ({
   const { setSelectedInputToken, setSelectedOutputToken } = useSwapStore();
   return (
     <div
-      className="w-full h-20 hover:bg-primary-card-hover flex gap-2 items-start justify-center flex-col cursor-pointer p-3 rounded-xl text-primary-brand"
+      className="w-full  hover:bg-primary-card-hover flex gap-1 items-start justify-center flex-col cursor-pointer px-3 py-1 text-primary-brand"
       onClick={() =>
         tokenDirection === TOKEN_DIRECTION.INPUT
           ? setSelectedInputToken(token)
@@ -31,9 +31,9 @@ export const TokenSelectItem = ({
           className="rounded-full"
           unoptimized
         />
-        <span className="font-bold text-lg">{token.symbol}</span>
+        <span className="font-bold text-xl">{token.symbol}</span>
       </div>
-      <span>{abbreviate(token.mintAddress)}</span>
+      <span className="text-lg">{abbreviate(token.mintAddress)}</span>
     </div>
   );
 };
